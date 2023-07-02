@@ -10,14 +10,15 @@ import javax.swing.*;
 
 import com.vividsolutions.jump.workbench.model.Layer;
 
-public class dialog<T> extends JFrame implements ActionListener
+public class Dialog extends JFrame implements ActionListener
 {
 	private JLabel label;
 	private JRadioButton radioButton[];
-	private T result;
+	private String result;
+	private JButton b;
 
 	//only for test
-	public dialog(){
+	public Dialog(){
 		JPanel container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 		
@@ -48,9 +49,9 @@ public class dialog<T> extends JFrame implements ActionListener
 		
 		JButton button = new JButton("fine!");
 		button.setName("prova");
-		
 		JPanel confirmPanel = new JPanel();
 		confirmPanel.add(button);
+		b=button;
 		
 		container.add(buttonPanel);
 		container.add(confirmPanel);
@@ -68,12 +69,46 @@ public class dialog<T> extends JFrame implements ActionListener
 	}
 	
 	
-	dialog(List<Layer> list){
-		JPanel container = new JPanel();
+	public Dialog(List<Layer> list){
+		
+		
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+        
+        JPanel container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 		
 		Container c = getContentPane();
 		setTitle("Select a layer");
+		
+		JPanel confirmPanel = new JPanel();
+		
+        
+        if(list.size()==0) {
+        	
+        	JLabel label = new JLabel("no layers");
+        	label.setText("Add at least 1 leayer to openJump before lounching the plug-in");
+        	container.add(label);
+        	
+        	JButton button = new JButton("Return");
+    		button.setName("error");
+    		button.addActionListener(this);
+    		b=button;
+    		confirmPanel.add(button);
+    		container.add(confirmPanel);
+    		
+    		c.add(container);
+    		setVisible(true);
+    		setMinimumSize(new Dimension(400, 300));
+    		return;
+		}
+        
+        JButton button = new JButton("Next");
+		button.setName("next");
+		button.addActionListener(this);
+		b=button;
+		confirmPanel.add(button);
+		
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(list.size(), 1));
@@ -89,18 +124,11 @@ public class dialog<T> extends JFrame implements ActionListener
 			// create radio button with label
 			radioButton[i] = new JRadioButton(l.getName());
 			radioButton[i].addActionListener(this);
+			radioButton[i].setName(l.getName());
 			group.add(radioButton[i]);
 			buttonPanel.add(radioButton[i]);
 			i++;
 		}
-		
-		
-		
-		JButton button = new JButton("fine!");
-		button.setName("prova");
-		
-		JPanel confirmPanel = new JPanel();
-		confirmPanel.add(button);
 		
 		container.add(buttonPanel);
 		container.add(confirmPanel);
@@ -118,16 +146,26 @@ public class dialog<T> extends JFrame implements ActionListener
 	
 	public void actionPerformed(ActionEvent e){
 		int size = 0;
-		if (e.getSource() == radioButton[0])
-			size = 12;
-		else if (e.getSource() == radioButton[1])
-			size = 18;
-		else size = 36;
-
-		label.setFont(new Font("TimesRoman", Font.PLAIN, size));
+		
+		if(e.getSource()==b) {
+			if(!b.getName().toString().equals("error")) {
+				System.out.println(result);
+			}
+				
+			dispose();
+			return;
+		}
+		
+		for(int i =0; i< radioButton.length ; i++) {
+			if(e.getSource()==radioButton[i]) { 
+				result= radioButton[i].getName().toString();
+			}
+		}
+		
 	}
 	
+	
 	public static void main(String args[]){
-		new dialog();
+		new Dialog();
 	}
 }

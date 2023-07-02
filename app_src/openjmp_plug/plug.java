@@ -1,6 +1,7 @@
 package openjmp_plug;
 
 import com.vividsolutions.jump.workbench.model.Layer;
+
 import com.vividsolutions.jump.workbench.plugin.AbstractPlugIn;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 import com.vividsolutions.jump.workbench.ui.plugin.FeatureInstaller;
@@ -19,12 +20,12 @@ import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.feature.FeatureCollection;
 import com.vividsolutions.jump.feature.FeatureDataset;
 import com.vividsolutions.jump.feature.FeatureSchema;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 
-
-
-
-public class plug extends AbstractPlugIn{
+public class plug extends AbstractPlugIn {
 
 	@Override
 	public void initialize(PlugInContext context) throws Exception {
@@ -45,11 +46,16 @@ public class plug extends AbstractPlugIn{
 		
 		List<Layer> layers  = context.getLayerManager().getLayers();
 		
-		for(Layer l : layers) {
-			System.out.println(l.getName());
-		}
 		
-		new dialog<Layer>(layers);
+		String layer_name = null;
+ 		
+ 			
+ 		
+ 		
+		new Dialog(layers);
+ 		
+ 		
+ 		
 		
 		 
 		return false;
