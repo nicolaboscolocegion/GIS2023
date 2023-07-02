@@ -8,72 +8,24 @@ import java.util.List;
 import javax.swing.*;
 // import window.JWindowFrame;
 
+//
+
 import com.vividsolutions.jump.workbench.model.Layer;
 
-public class Dialog extends JFrame implements ActionListener
+public class Dialog extends JDialog implements ActionListener
 {
 	private JLabel label;
 	private JRadioButton radioButton[];
-	private String result;
 	private JButton b;
+	private String result;
 
-	//only for test
-	public Dialog(){
-		JPanel container = new JPanel();
-		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-		
-		Container c = getContentPane();
-		setTitle("Radio Buttons Demo");
-		
-
-		
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(4, 1));
-		
-
-		// group radio button
-		ButtonGroup group = new ButtonGroup();
-		radioButton = new JRadioButton[3];
-		// string labels for radio buttons
-		String buttonName[] = {"12", "18", "36"};
-
-		for (int i = 0; i < radioButton.length; i++){
-			// create radio button with label
-			radioButton[i] = new JRadioButton(buttonName[i]);
-			radioButton[i].addActionListener(this);
-			group.add(radioButton[i]);
-			buttonPanel.add(radioButton[i]);
-		}
-		
-		
-		
-		JButton button = new JButton("fine!");
-		button.setName("prova");
-		JPanel confirmPanel = new JPanel();
-		confirmPanel.add(button);
-		b=button;
-		
-		container.add(buttonPanel);
-		container.add(confirmPanel);
-		
-		c.add(container);
-
-		setMinimumSize(new Dimension(500, 300));
-		pack();
-		
-		
-		//setMinimumSize(new Dimension(500, 300));
-		//pack();
-		
-		setVisible(true);
-	}
-	
 	
 	public Dialog(List<Layer> list){
+		setModal(true);
 		
 		
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setResizable(false);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
         
         JPanel container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
@@ -83,7 +35,8 @@ public class Dialog extends JFrame implements ActionListener
 		
 		JPanel confirmPanel = new JPanel();
 		
-        
+		
+			//controlls if there are any layers
         if(list.size()==0) {
         	
         	JLabel label = new JLabel("no layers");
@@ -98,11 +51,14 @@ public class Dialog extends JFrame implements ActionListener
     		container.add(confirmPanel);
     		
     		c.add(container);
-    		setVisible(true);
     		setMinimumSize(new Dimension(400, 300));
+    		setResizable(false);
+    		setVisible(true);
     		return;
 		}
-        
+		
+		
+        //creates the button for going in the next operation
         JButton button = new JButton("Next");
 		button.setName("next");
 		button.addActionListener(this);
@@ -120,8 +76,8 @@ public class Dialog extends JFrame implements ActionListener
 		// string labels for radio buttons
 
 		int i=0;
+		// create radio button with label
 		for (Layer l : list){
-			// create radio button with label
 			radioButton[i] = new JRadioButton(l.getName());
 			radioButton[i].addActionListener(this);
 			radioButton[i].setName(l.getName());
@@ -135,37 +91,39 @@ public class Dialog extends JFrame implements ActionListener
 		
 		c.add(container);
 
+		//set size
 		setMinimumSize(new Dimension(400, 300));
 		pack();
-		
-		
+		setResizable(false);
 		setVisible(true);
 	}
 	
 	
 	
-	public void actionPerformed(ActionEvent e){
+	public  synchronized void actionPerformed(ActionEvent e){
 		int size = 0;
 		
+		//closed operation
 		if(e.getSource()==b) {
 			if(!b.getName().toString().equals("error")) {
-				System.out.println(result);
-			}
 				
+			}
 			dispose();
 			return;
 		}
 		
+		//finds the radio button selected
 		for(int i =0; i< radioButton.length ; i++) {
 			if(e.getSource()==radioButton[i]) { 
-				result= radioButton[i].getName().toString();
+				result = radioButton[i].getName().toString();
 			}
 		}
 		
 	}
 	
+	//returns the result
+	public String getResult() {return result;}
 	
-	public static void main(String args[]){
-		new Dialog();
-	}
+
+	
 }

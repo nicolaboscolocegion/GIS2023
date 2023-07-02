@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import org.python.modules.synchronize;
+
 import com.vividsolutions.jump.feature.BasicFeature;
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.feature.FeatureCollection;
@@ -24,9 +26,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import java.util.concurrent.*;
+
+
 
 public class plug extends AbstractPlugIn {
 
+	public Layer result=null;
+	
 	@Override
 	public void initialize(PlugInContext context) throws Exception {
 		
@@ -46,18 +53,11 @@ public class plug extends AbstractPlugIn {
 		
 		List<Layer> layers  = context.getLayerManager().getLayers();
 		
-		
-		String layer_name = null;
- 		
- 			
- 		
- 		
-		new Dialog(layers);
- 		
- 		
+		Dialog d=new Dialog(layers);
+	
+		System.out.println(d.getResult());
  		
 		
-		 
 		return false;
 	}
 	
