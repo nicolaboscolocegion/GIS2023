@@ -6,23 +6,20 @@ import java.awt.event.*;
 import java.util.List;
 
 import javax.swing.*;
-// import window.JWindowFrame;
-
-//
 
 import com.vividsolutions.jump.workbench.model.Layer;
 
-public class Dialog extends JDialog implements ActionListener
-{
+public class LayerSelectior extends JDialog implements ActionListener{
+	
 	private JLabel label;
 	private JRadioButton radioButton[];
 	private JButton b;
 	private String result;
 
 	
-	public Dialog(List<Layer> list){
+	public LayerSelectior(List<Layer> list){
 		setModal(true);
-		
+
 		
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -36,7 +33,7 @@ public class Dialog extends JDialog implements ActionListener
 		JPanel confirmPanel = new JPanel();
 		
 		
-			//controlls if there are any layers
+		//controlls if there are any layers
         if(list.size()==0) {
         	
         	JLabel label = new JLabel("no layers");
@@ -100,8 +97,7 @@ public class Dialog extends JDialog implements ActionListener
 	
 	
 	
-	public  synchronized void actionPerformed(ActionEvent e){
-		int size = 0;
+	public void actionPerformed(ActionEvent e){
 		
 		//closed operation
 		if(e.getSource()==b) {
@@ -121,9 +117,9 @@ public class Dialog extends JDialog implements ActionListener
 		
 	}
 	
+	
 	//returns the result
 	public String getResult() {return result;}
 	
-
 	
 }

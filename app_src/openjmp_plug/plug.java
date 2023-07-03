@@ -1,34 +1,15 @@
 package openjmp_plug;
 
+import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.workbench.model.Layer;
+
 
 import com.vividsolutions.jump.workbench.plugin.AbstractPlugIn;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 import com.vividsolutions.jump.workbench.ui.plugin.FeatureInstaller;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.vividsolutions.jump.workbench.ui.*;
+import javax.swing.JComboBox;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-
-import org.python.modules.synchronize;
-
-import com.vividsolutions.jump.feature.BasicFeature;
-import com.vividsolutions.jump.feature.Feature;
-import com.vividsolutions.jump.feature.FeatureCollection;
-import com.vividsolutions.jump.feature.FeatureDataset;
-import com.vividsolutions.jump.feature.FeatureSchema;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
-import java.util.concurrent.*;
-
-
 
 public class plug extends AbstractPlugIn {
 
@@ -51,16 +32,49 @@ public class plug extends AbstractPlugIn {
 	@Override
 	public boolean execute(PlugInContext context) throws Exception {
 		
-		List<Layer> layers  = context.getLayerManager().getLayers();
 		
-		Dialog d=new Dialog(layers);
+		
+		//calls the dialog for the selection layer
+		
+		MultiInputDialog mid = new MultiInputDialog(
+				context.getWorkbenchFrame(),
+				this.getName(), true );
+				String _namelayer = "Choose the layer to process";
+				mid.addLayerComboBox( _namelayer, null,
+				context.getLayerManager() );
+				mid.addAttributeComboBox("Report", _namelayer, new AttributeTypeFilter(AttributeTypeFilter.STRING), "");
+				mid.setVisible( true ); // modal dialog
+				if( mid.wasOKPressed() == false ) return false;
+				
+		String name = mid.getText( _namelayer ); 
+		
+		if(name.equals("")) {
+			System.err.println("no layer");
+			return false;
+		}
+		
+		Layer inputLayer = context.getLayerManager().getLayer(name);
+		
+		for(Feature f : inputLayer.getFeatureCollectionWrapper().getFeatures()) {
+			System.out.println(f.getAttribute("altitude"));
+		}
+		
 	
-		System.out.println(d.getResult());
- 		
+		
+		MultiInputDialog mid1 = new MultiInputDialog(
+				context.getWorkbenchFrame(),
+				this.getName(), true );
+				String _nameReport = "Choose the layer to process";
+				
+				mid1.setVisible( true ); // modal dialog
+				if( mid1.wasOKPressed() == false ) return false;
+		
+		
+		
+		System.out.println(name);
 		
 		return false;
 	}
-	
 	
 	
 	@Override
