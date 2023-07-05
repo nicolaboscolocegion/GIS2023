@@ -18,8 +18,6 @@ import org.locationtech.jts.util.GeometricShapeFactory;
 
 import com.vividsolutions.jump.workbench.ui.*;
 
-import org.locationtech.jts.geom.Geometry;
-
 import java.util.List;
 
 import com.vividsolutions.jump.feature.*;
@@ -175,6 +173,7 @@ public class plug extends AbstractPlugIn {
 		
 		FeatureCollection fc = new FeatureDataset(fs);
 		
+		GeometryFactory gf =new GeometryFactory();
 		//create feature for nearest upstream monitor unit
 		if(upstreamStations[0]!=null) {
 			Feature nearestMonitorUnit = new BasicFeature(fs);
@@ -182,6 +181,14 @@ public class plug extends AbstractPlugIn {
 			nearestMonitorUnit.setAttribute("type", "monitor unit");
 			nearestMonitorUnit.setAttribute("altitude", upstreamStations[0].getAttribute("altitude"));
 			fc.add(nearestMonitorUnit);
+			
+			Feature line = new BasicFeature(fs);
+			Coordinate[] lineCoordinate= new Coordinate[2];
+			lineCoordinate[0] = nearestMonitorUnit.getGeometry().getCoordinate();
+			lineCoordinate[1] = reportSelected.getGeometry().getCoordinate();
+			line.setGeometry(gf.createLineString(lineCoordinate));
+			line.setAttribute("type", "line");
+			fc.add(line);
 		}
 		//create feature for second nearest upstream monitor unit
 		if(upstreamStations[1]!=null) {
@@ -190,18 +197,45 @@ public class plug extends AbstractPlugIn {
 			farMonitorUnit.setAttribute("type", "monitor unit");
 			farMonitorUnit.setAttribute("altitude", upstreamStations[1].getAttribute("altitude"));
 			fc.add(farMonitorUnit);
+			
+			Feature line = new BasicFeature(fs);
+			Coordinate[] lineCoordinate= new Coordinate[2];
+			lineCoordinate[0] = farMonitorUnit.getGeometry().getCoordinate();
+			lineCoordinate[1] = reportSelected.getGeometry().getCoordinate();
+			line.setGeometry(gf.createLineString(lineCoordinate));
+			line.setAttribute("type", "line");
+			fc.add(line);
 		}
 		if(downstramStation!=null) {
-		//create feature for the nearest downstram unit
-		Feature downStreamMonitorUnit = new BasicFeature(fs);
-		downStreamMonitorUnit.setGeometry(downstramStation.getGeometry());
-		downStreamMonitorUnit.setAttribute("type", "monitor unit");
-		downStreamMonitorUnit.setAttribute("altitude", downstramStation.getAttribute("altitude"));
-		fc.add(downStreamMonitorUnit);
+			//create feature for the nearest downstram unit
+			Feature downStreamMonitorUnit = new BasicFeature(fs);
+			downStreamMonitorUnit.setGeometry(downstramStation.getGeometry());
+			downStreamMonitorUnit.setAttribute("type", "monitor unit");
+			downStreamMonitorUnit.setAttribute("altitude", downstramStation.getAttribute("altitude"));
+			fc.add(downStreamMonitorUnit);
+			
+			Feature line = new BasicFeature(fs);
+			Coordinate[] lineCoordinate= new Coordinate[2];
+			lineCoordinate[0] = downStreamMonitorUnit.getGeometry().getCoordinate();
+			lineCoordinate[1] = reportSelected.getGeometry().getCoordinate();
+			line.setGeometry(gf.createLineString(lineCoordinate));
+			line.setAttribute("type", "line");
+			fc.add(line);
 		}
 		
+		//add report to the layer
+		Feature copyReport = new BasicFeature(fs);
+		copyReport.setGeometry(reportSelected.getGeometry());
+		copyReport.setAttribute("type", "report");
+		copyReport.setAttribute("altitude", reportAltitude);
+		fc.add(copyReport);
 		
-		Layer outputLayer= new Layer();
+		
+		
+		
+		
+		
+		
 		
 		context.getLayerManager().addLayer("Result", "output", fc);
 		
