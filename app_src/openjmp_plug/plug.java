@@ -256,7 +256,7 @@ public class plug extends AbstractPlugIn {
 		FeatureCollection nearReports = new FeatureDataset(inputLayer.getFeatureCollectionWrapper().getFeatures().get(0).getSchema().clone());
 		
 		for(Feature r : inputLayer.getFeatureCollectionWrapper().getFeatures()) {
-			if(bufferReport.contains(r.getGeometry())) {
+			if(bufferReport.contains(r.getGeometry()) && !r.getAttribute("name").equals(reportSelectedName)) {
 				nearReports.add(r.clone());
 				Feature line = new BasicFeature(fs);
 				Coordinate[] lineCoordinate= new Coordinate[2];
@@ -267,7 +267,7 @@ public class plug extends AbstractPlugIn {
 			}
 		}
 		
-		
+		nearReports.add(reportSelected);
 		
 		context.getLayerManager().addLayer("Result", "near stations", fc);
 		
