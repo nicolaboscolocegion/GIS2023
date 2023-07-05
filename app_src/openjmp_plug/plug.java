@@ -12,6 +12,7 @@ import com.vividsolutions.jump.workbench.model.Layer;
 import com.vividsolutions.jump.workbench.plugin.AbstractPlugIn;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
+import org.locationtech.jts.algorithm.Length;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.util.GeometricShapeFactory;
 
@@ -84,7 +85,7 @@ public class plug extends AbstractPlugIn {
 		MultiInputDialog mid1 = new MultiInputDialog(
 				context.getWorkbenchFrame(),
 				this.getName(), true );
-				String _nameReport = "Choose the layer to process";
+				String _nameReport = "Choose the report to process";
 				mid1.addComboBox(_nameReport, reports.get(0), reports, "yes");
 				mid1.setVisible( true ); // modal dialog
 				if( mid1.wasOKPressed() == false ) return false;
@@ -109,7 +110,9 @@ public class plug extends AbstractPlugIn {
 		Feature downstramStation = null;
 		
 		double[] upstreamDistances = new double[2];
-		double downstramDistant = 0;
+		upstreamDistances[0]=-1;
+		upstreamDistances[1]=-1;
+		double downstramDistant = -1;
 		
 		//for test
 		int reportAltitude= 700;
@@ -129,7 +132,7 @@ public class plug extends AbstractPlugIn {
 			double distanceTemp =0;
 			//if upstream
 			if(f.getInteger(altitudeIndex)>reportAltitude) {
-				if(upstreamDistances[0]!=0 && upstreamDistances[0] > (distanceTemp = reportGeo.distance(f.getGeometry()))) {
+				if(upstreamDistances[0]!=-1 && upstreamDistances[0] > (distanceTemp = reportGeo.distance(f.getGeometry()))) {
 					//swap the first with the second nearest
 					upstreamDistances[1]= upstreamDistances[0];
 					upstreamStations[1] =upstreamStations[0];
@@ -137,9 +140,24 @@ public class plug extends AbstractPlugIn {
 					upstreamDistances[0] =distanceTemp;
 					upstreamStations[0] = f;
 					continue;
+					
 				}
 				
-				if(upstreamDistances[0]==0) {
+				if(upstreamDistances[1]!=-1 && upstreamDistances[1] > (distanceTemp = reportGeo.distance(f.getGeometry()))) {
+					//Controls the second distance
+					upstreamDistances[1] =distanceTemp;
+					upstreamStations[1] = f;
+					continue;
+					
+				}
+					
+				if(upstreamDistances[1]==-1) {
+					upstreamDistances[1]=reportGeo.distance(f.getGeometry());
+					upstreamStations[1]=f;
+					continue;
+				}
+				
+				if(upstreamDistances[0]==-1) {
 					upstreamDistances[0] =reportGeo.distance(f.getGeometry());
 					upstreamStations[0] = f;
 					continue;
@@ -147,7 +165,7 @@ public class plug extends AbstractPlugIn {
 				
 			//if downstream
 			}else{
-				if(downstramDistant!=0 && downstramDistant > (distanceTemp = reportGeo.distance(f.getGeometry()))) {
+				if(downstramDistant!=-1 && downstramDistant > (distanceTemp = reportGeo.distance(f.getGeometry()))) {
 					//swap the first with the second nearest
 					
 					downstramDistant =distanceTemp;
@@ -155,7 +173,7 @@ public class plug extends AbstractPlugIn {
 					continue;
 				}
 				
-				if(downstramDistant==0) {
+				if(downstramDistant==-1) {
 					downstramDistant = reportGeo.distance(f.getGeometry());
 					downstramStation = f;
 					continue;
@@ -181,7 +199,7 @@ public class plug extends AbstractPlugIn {
 			nearestMonitorUnit.setAttribute("type", "monitor unit");
 			nearestMonitorUnit.setAttribute("altitude", upstreamStations[0].getAttribute("altitude"));
 			fc.add(nearestMonitorUnit);
-			
+			//create line
 			Feature line = new BasicFeature(fs);
 			Coordinate[] lineCoordinate= new Coordinate[2];
 			lineCoordinate[0] = nearestMonitorUnit.getGeometry().getCoordinate();
@@ -197,7 +215,7 @@ public class plug extends AbstractPlugIn {
 			farMonitorUnit.setAttribute("type", "monitor unit");
 			farMonitorUnit.setAttribute("altitude", upstreamStations[1].getAttribute("altitude"));
 			fc.add(farMonitorUnit);
-			
+			//create line
 			Feature line = new BasicFeature(fs);
 			Coordinate[] lineCoordinate= new Coordinate[2];
 			lineCoordinate[0] = farMonitorUnit.getGeometry().getCoordinate();
@@ -213,7 +231,7 @@ public class plug extends AbstractPlugIn {
 			downStreamMonitorUnit.setAttribute("type", "monitor unit");
 			downStreamMonitorUnit.setAttribute("altitude", downstramStation.getAttribute("altitude"));
 			fc.add(downStreamMonitorUnit);
-			
+			//create line
 			Feature line = new BasicFeature(fs);
 			Coordinate[] lineCoordinate= new Coordinate[2];
 			lineCoordinate[0] = downStreamMonitorUnit.getGeometry().getCoordinate();
@@ -232,12 +250,29 @@ public class plug extends AbstractPlugIn {
 		
 		
 		
+		//finds all reports in the 500m range
+		Geometry bufferReport = reportSelected.getGeometry().buffer(500);
+		
+		FeatureCollection nearReports = new FeatureDataset(inputLayer.getFeatureCollectionWrapper().getFeatures().get(0).getSchema().clone());
+		
+		for(Feature r : inputLayer.getFeatureCollectionWrapper().getFeatures()) {
+			if(bufferReport.contains(r.getGeometry())) {
+				nearReports.add(r.clone());
+				Feature line = new BasicFeature(fs);
+				Coordinate[] lineCoordinate= new Coordinate[2];
+				lineCoordinate[0] = r.getGeometry().getCoordinate();
+				lineCoordinate[1] = reportSelected.getGeometry().getCoordinate();
+				line.setGeometry(gf.createLineString(lineCoordinate));
+				nearReports.add(line);
+			}
+		}
 		
 		
 		
+		context.getLayerManager().addLayer("Result", "near stations", fc);
 		
-		
-		context.getLayerManager().addLayer("Result", "output", fc);
+		context.getLayerManager().addLayer("Result", "near reports", nearReports);
+
 		
 		System.out.println(name);
 		
