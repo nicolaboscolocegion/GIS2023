@@ -1,9 +1,9 @@
 package openjmp_plug;
 
-import com.vividsolutions.jump.feature.Feature;
-import com.vividsolutions.jump.feature.FeatureCollection;
-import com.vividsolutions.jump.feature.FeatureDataset;
-import com.vividsolutions.jump.feature.FeatureSchema;
+import com.vividsolutions.jump.feature.*;
+import com.vividsolutions.jump.workbench.ui.plugin.FeatureInstaller;
+
+
 
 import java.util.LinkedList;
 import com.vividsolutions.jump.workbench.model.Layer;
@@ -11,12 +11,25 @@ import com.vividsolutions.jump.workbench.model.Layer;
 
 import com.vividsolutions.jump.workbench.plugin.AbstractPlugIn;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
-import com.vividsolutions.jump.workbench.ui.plugin.FeatureInstaller;
+
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.util.GeometricShapeFactory;
+
+
 import com.vividsolutions.jump.workbench.ui.*;
 
 import org.locationtech.jts.geom.Geometry;
 
 import java.util.List;
+
+import com.vividsolutions.jump.feature.*;
+import com.vividsolutions.jump.workbench.model.Layer;
+import com.vividsolutions.jump.workbench.plugin.AbstractPlugIn;
+import com.vividsolutions.jump.workbench.plugin.PlugInContext;
+import com.vividsolutions.jump.workbench.ui.plugin.FeatureInstaller;
+import org.locationtech.jts.geom.*;
+import org.locationtech.jts.util.GeometricShapeFactory;
+import org.openjump.core.geomutils.Circle;
 
 public class plug extends AbstractPlugIn {
 
@@ -94,13 +107,14 @@ public class plug extends AbstractPlugIn {
 		
 		String[] stationLayers = {"idrografia-belluno-stazioni-fiumi-bio", "idrografia-belluno-stazioni-fiumi-chimico", "idrografia-belluno-stazioni-laghi-bio", "idrografia-belluno-stazioni-laghi-chimico"};
 		
-		Geometry[] upstreamStations = new Geometry[2];
-		Geometry downstramStation = null;
+		Feature[] upstreamStations = new Feature[2];
+		Feature downstramStation = null;
 		
 		double[] upstreamDistances = new double[2];
 		double downstramDistant = 0;
 		
-		int reportAltitude= 200;
+		//for test
+		int reportAltitude= 700;
 		
 		List<Feature> stations = new LinkedList();
 				
@@ -112,7 +126,7 @@ public class plug extends AbstractPlugIn {
 		
 		//fid upstream and downstream nearest stations
 		for(Feature f : stations) {
-			System.out.println(f.getInteger(8));
+			
 			int altitudeIndex = f.getSchema().getAttributeIndex("altitude");
 			double distanceTemp =0;
 			//if upstream
@@ -123,13 +137,13 @@ public class plug extends AbstractPlugIn {
 					upstreamStations[1] =upstreamStations[0];
 					
 					upstreamDistances[0] =distanceTemp;
-					upstreamStations[0] = f.getGeometry();
+					upstreamStations[0] = f;
 					continue;
 				}
 				
 				if(upstreamDistances[0]==0) {
 					upstreamDistances[0] =reportGeo.distance(f.getGeometry());
-					upstreamStations[0] = f.getGeometry();
+					upstreamStations[0] = f;
 					continue;
 				}
 				
@@ -139,23 +153,58 @@ public class plug extends AbstractPlugIn {
 					//swap the first with the second nearest
 					
 					downstramDistant =distanceTemp;
-					downstramStation = f.getGeometry();
+					downstramStation = f;
 					continue;
 				}
 				
 				if(downstramDistant==0) {
 					downstramDistant = reportGeo.distance(f.getGeometry());
-					downstramStation = f.getGeometry();
+					downstramStation = f;
 					continue;
 				}
 			}
 		}
 		
+		//create features for the monitor units
 		FeatureSchema fs= new FeatureSchema();
 		
+		//crate schema
+		fs.addAttribute("type" , AttributeType.STRING);
+		fs.addAttribute("altitude", AttributeType.INTEGER);
+		fs.addAttribute("geo", AttributeType.GEOMETRY);
+		
+		FeatureCollection fc = new FeatureDataset(fs);
+		
+		//create feature for nearest upstream monitor unit
+		if(upstreamStations[0]!=null) {
+			Feature nearestMonitorUnit = new BasicFeature(fs);
+			nearestMonitorUnit.setGeometry(upstreamStations[0].getGeometry());
+			nearestMonitorUnit.setAttribute("type", "monitor unit");
+			nearestMonitorUnit.setAttribute("altitude", upstreamStations[0].getAttribute("altitude"));
+			fc.add(nearestMonitorUnit);
+		}
+		//create feature for second nearest upstream monitor unit
+		if(upstreamStations[1]!=null) {
+			Feature farMonitorUnit = new BasicFeature(fs);
+			farMonitorUnit.setGeometry(upstreamStations[1].getGeometry());
+			farMonitorUnit.setAttribute("type", "monitor unit");
+			farMonitorUnit.setAttribute("altitude", upstreamStations[1].getAttribute("altitude"));
+			fc.add(farMonitorUnit);
+		}
+		if(downstramStation!=null) {
+		//create feature for the nearest downstram unit
+		Feature downStreamMonitorUnit = new BasicFeature(fs);
+		downStreamMonitorUnit.setGeometry(downstramStation.getGeometry());
+		downStreamMonitorUnit.setAttribute("type", "monitor unit");
+		downStreamMonitorUnit.setAttribute("altitude", downstramStation.getAttribute("altitude"));
+		fc.add(downStreamMonitorUnit);
+		}
 		
 		
-		//FeatureCollection fc = new FeatureDataset();
+		Layer outputLayer= new Layer();
+		
+		context.getLayerManager().addLayer("Result", "output", fc);
+		
 		System.out.println(name);
 		
 		return false;
