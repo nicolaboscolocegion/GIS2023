@@ -50,6 +50,73 @@
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.4.0/ol.css">
+    <style>
+     
+     #map {
+          width: 100%;
+          height: 33em;
+          /* position: fixed; */
+          top: 12em;
+          right: 0;
+          bottom: 0;
+         
+      }
+        .ol-popup {
+          position: absolute;
+          background-color: #ffffff;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+          padding: 10px;
+          border-radius: 4px;
+          border: 1px solid #cccccc;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          max-width: 200px;
+          white-space: nowrap;
+          color: #333333;
+        }
+
+        .ol-popup:before {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -8px;
+          border-width: 8px;
+          border-style: solid;
+          border-color: transparent transparent #cccccc transparent;
+        }
+
+        .ol-popup:after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -7px;
+          border-width: 7px;
+          border-style: solid;
+          border-color: transparent transparent #ffffff transparent;
+        }
+
+        .ol-popup-closer {
+          text-decoration: none;
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          font-size: 16px;
+          font-weight: bold;
+          color: #999999;
+          line-height: 1;
+        }
+
+        #popup-content {
+          margin-bottom: 5px;
+        }
+
+        #popup-closer:hover {
+          color: #555555;
+        }
+    </style>
 
 </head>
 
@@ -61,20 +128,20 @@
         <div class="row">
           <div class="col-12">
             <div class="it-header-slim-wrapper-content">
-              <a class="d-none d-lg-block navbar-brand" href="#">Ente appartenenza</a>
+              <a class="d-none d-lg-block navbar-brand" href="https://www.provincia.belluno.it/home">Provincia di Belluno</a>
               <div class="nav-mobile">
                 <nav aria-label="Navigazione accessoria">
                   <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#menu1a" role="button"
                     aria-expanded="false" aria-controls="menu4">
-                    <span>Ente appartenenza</span>
+                    <span>Provincia di Belluno</span>
                     <svg class="icon" aria-hidden="true">
                       <use href="bootstrap-italia/dist/svg/sprites.svg#it-expand"></use>
                     </svg>
                   </a>
                   <div class="link-list-wrapper collapse" id="menu1a">
                     <ul class="link-list">
-                      <li><a class="dropdown-item list-item" href="#">Link 1</a></li>
-                      <li><a class="list-item active" href="#" aria-current="page">Link 2 (Attivo)</a></li>
+                      <li><a class="dropdown-item list-item" href="https://www.provincia.belluno.it/home">Torna alla Home</a></li>
+              
                     </ul>
                   </div>
                 </nav>
@@ -118,13 +185,11 @@
             <div class="col-12">
               <div class="it-header-center-content-wrapper">
                 <div class="it-brand-wrapper">
-                  <a href="#">
-                    <svg class="icon" aria-hidden="true">
-                      <use href="bootstrap-italia/dist/svg/sprites.svg#it-pa"></use>
-                    </svg>
+                  <a href="https://www.provincia.belluno.it/home">
+                    <img src="araldico.png" style="margin-right:5px;">
                     <div class="it-brand-text">
-                      <div class="it-brand-title">Nome dell'Istituzione</div>
-                      <div class="it-brand-tagline d-none d-md-block">Tag line dell'Istituzione</div>
+                      <div class="it-brand-title">Ufficio segnalazione contaminazione</div>
+                      <div class="it-brand-tagline d-none d-md-block">Regione del Veneto</div>
                     </div>
                   </a>
                 </div>
@@ -277,71 +342,63 @@
       </div>
     </div>
   </div>
+  
+  <div>
+    <div id="map"></div>
+    <div id="popup" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+        <div id="popup-content"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.4.0/dist/ol.js"></script>
+    
+  </div>
 
   <div class="container my-4">
-    <h1>Lorem Ipsum</h1>
-    <p>Ab illo tempore, ab est sed immemorabili.<br />
-      Ullamco laboris nisi ut aliquid ex ea commodi consequat.<br />
-      Quis aute iure reprehenderit in voluptate velit esse.<br />
-      Petierunt uti sibi concilium totius Galliae in diem certam indicere.</p>
-    <p>Pellentesque habitant morbi tristique senectus et netus.</p>
-    <h2>Esempio di Card</h2>
+
+   <form method="POST" action="execute_insert_report.php" enctype="multipart/form-data">
+    <h2>Fornisci ulteriori informazioni</h2>
     <div class="my-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-md-6 col-lg-4">
-            <!--start card-->
-            <div class="card-wrapper card-space">
-              <div class="card card-bg card-big">
-                <div class="card-body">
-                  <div class="top-icon">
-                    <svg class="icon">
-                      <use href="bootstrap-italia/dist/svg/sprites.svg#it-card"></use>
-                    </svg>
-                  </div>
-                  <h3 class="card-title h5 ">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor…</h3>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua.</p>
-                  <a class="read-more" href="#">
-                    <span class="text">Leggi di più</span>
-                    <span class="visually-hidden">su Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                      eiusmod tempor…</span>
-                    <svg class="icon">
-                      <use href="bootstrap-italia/dist/svg/sprites.svg#it-arrow-right"></use>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <!--end card-->
+      <div class="row">
+        <div class="form-group col-md-6">
+          <div class="select-wrapper">
+            <label for="inputInquinante">Inquinante *</label>
+            <select id="inputInquinante" name="inputInquinante" required>
+              <option selected disabled hidden>-</option>
+              <option value="Pollutant spillage">Pollutant spillage</option>
+              <option value="Presence of trash nearby / in the water">Presence of trash nearby / in the water</option>
+              <option value="3">Presence of foam in the water</option>
+              <option value="Presence of foam in the water">Foul smell</option>
+              <option value="Damages to the banks">Damages to the banks</option>
+              <option value="Endangerment of fish">Endangerment of fish</option>
+            </select>
           </div>
         </div>
-      </div>
-    </div>
-    <h2>Esempio di Form</h2>
-    <div class="my-5">
-      <div class="row">
         <div class="form-group col-md-6">
-          <label for="inputEmail4" class="active">Email</label>
-          <input type="email" class="form-control" id="inputEmail4" placeholder="inserisci il tuo indirizzo email">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="exampleInputPassword" class="active">Password</label>
-          <input type="password" data-bs-input class="form-control input-password" id="exampleInputPassword"
-            placeholder="inserisci la tua password">
-          <span class="password-icon" aria-hidden="true">
-            <svg class="password-icon-visible icon icon-sm">
-              <use href="bootstrap-italia/dist/svg/sprites.svg#it-password-visible"></use>
-            </svg>
-            <svg class="password-icon-invisible icon icon-sm d-none">
-              <use href="bootstrap-italia/dist/svg/sprites.svg#it-password-invisible"></use>
-            </svg>
-          </span>
+          <label for="inputUlterioriInfo" class="active">Ulteriori informazioni</label>
+          <input type="text" data-bs-input class="form-control input-password" id="inputUlterioriInfo" name="inputUlterioriInfo" placeholder="altre info...">
         </div>
       </div>
       <div class="row">
-        <div class="form-group col">
+        <ul class="upload-pictures-wall">
+          <li>
+            <input type="file" name="upload_immagine" id="upload_immagine" class="upload pictures-wall" multiple="multiple" />
+            <label for="upload_immagine">
+              <svg class="icon icon-sm" aria-hidden="true"><use href="/bootstrap-italia/dist/svg/sprites.svg#it-plus"></use></svg>
+              <span>Carica foto</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div class="row mt-4">
+        <div class="form-group col text-center">
+          <input type="hidden" name="latitude" id="latitude"/>
+          <input type="hidden" name="longitude" id="longitude"/>
+          <button type="button" class="btn btn-outline-primary">Annulla</button>
+          <input type="submit" class="btn btn-primary" value="Conferma">
+        </div>
+      </div>
+        <!--<div class="form-group col">
           <label for="inputAddress" class="active">Indirizzo</label>
           <input type="text" class="form-control" id="inputAddress" placeholder="Via Roma, 1">
         </div>
@@ -385,8 +442,12 @@
           <button type="submit" class="btn btn-primary">Conferma</button>
         </div>
       </div>
-    </div>
-  </div>
+    </div>-->
+    </form>
+    
+  </div>  
+  </div>  
+    
 
   <footer class="it-footer">
     <div class="it-footer-main">
@@ -553,7 +614,7 @@
   <!-- <script src="./bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js"></script>-->
 
   <!-- App scripts -->
-  <script src="/js/main.js"></script>
+  <script src="js/mainj.js"></script>
 
 
 </body>
