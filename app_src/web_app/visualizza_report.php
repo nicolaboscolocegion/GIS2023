@@ -353,6 +353,44 @@ require_once("sessmgr.php");
     <div class="my-4 ">
       <a href="visualizza_tutti.php" style="float:right; margin-bottom: 2em;"><button type="button" class="btn btn-primary mb-2">Visualizza tutti</button></a>
     </div>
+  </div>
+
+  <div class="container my-4 float-right">
+    
+    <form method="POST" action="visualizza_report.php">
+    <div class="select-wrapper w-25 float-right">
+    <label for="defaultSelectDisabled">Seleziona anno</label>
+    <select id="defaultSelectDisabled" name="anno" class="w-50" onchange="this.form.submit();">
+    <?php
+    
+    $servername = "localhost";
+    $username = "postgres";
+    $password = "FruitNinja23!";
+    $dbname = "gis2023";
+
+
+    $conn = pg_connect("host=" . $servername . " port=5432 dbname=" . $dbname . " user=" . $username . " password=" . $password);
+
+    $result = pg_query($conn, "select distinct extract(year from data_report) as anno FROM reports;");
+    while ($arr = pg_fetch_array($result)) {
+      if (isset($_POST["anno"]) && $_POST["anno"] == $arr[0]) {
+        echo "<option value=\"" . $arr[0] . "\" selected>" . $arr[0] . "</option>";
+      }
+      else if (!isset($_POST["anno"]) && $arr[0] == date("Y")) {
+        echo "<option value=\"" . $arr[0] . "\" selected>" . $arr[0] . "</option>";
+      }
+      else {
+        echo "<option value=\"" . $arr[0] . "\">" . $arr[0] . "</option>";
+      }
+    }
+    
+    ?>
+    </select>
+    </div>
+    </form>
+  </div>
+  
+  <div class="container my-4">
   <table class="table">
   <thead>
     <tr>
@@ -376,7 +414,16 @@ require_once("sessmgr.php");
     $conn = pg_connect("host=" . $servername . " port=5432 dbname=" . $dbname . " user=" . $username . " password=" . $password);
     
     $i = 1;
-    $result = pg_query($conn, "SELECT data_report, pollutant, report_description, ST_AsText (position, 4326) as pos, id_report FROM reports;");
+
+    $sql = "";
+    if (isset($_POST["anno"])) {
+      $sql = "SELECT data_report, pollutant, report_description, ST_AsText (position, 4326) as pos, id_report FROM reports WHERE extract(year from data_report) = " . $_POST["anno"] . " ORDER BY data_report;";
+    }
+    else {
+      $sql = "SELECT data_report, pollutant, report_description, ST_AsText (position, 4326) as pos, id_report FROM reports WHERE extract(year from data_report) = " . date("Y") . " ORDER BY data_report;";
+    }
+
+    $result = pg_query($conn, $sql);
     while ($arr = pg_fetch_array($result)) {
       echo "<tr>";
       echo "<th>" . $i . "</th>";
