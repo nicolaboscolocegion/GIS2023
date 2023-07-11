@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 if(isset($_SESSION["user"])) {
         
   header("Location: visualizza_report.php");
@@ -206,21 +207,21 @@ if(isset($_SESSION["user"])) {
                     <span>Seguici su</span>
                     <ul>
                       <li>
-                        <a href="#" aria-label="Facebook" target="_blank">
+                        <a href="https://www.facebook.com/ProvinciaDiBelluno" aria-label="Facebook" target="_blank">
                           <svg class="icon">
                             <use href="bootstrap-italia/dist/svg/sprites.svg#it-facebook"></use>
                           </svg>
                         </a>
                       </li>
                       <li>
-                        <a href="#" aria-label="Github" target="_blank">
+                        <a href="https://github.com/nicolaboscolocegion/GIS2023" aria-label="Github" target="_blank">
                           <svg class="icon">
                             <use href="bootstrap-italia/dist/svg/sprites.svg#it-github"></use>
                           </svg>
                         </a>
                       </li>
                       <li>
-                        <a href="#" aria-label="Twitter" target="_blank">
+                        <a href="https://twitter.com/ProvinciaBL" aria-label="Twitter" target="_blank">
                           <svg class="icon">
                             <use href="bootstrap-italia/dist/svg/sprites.svg#it-twitter"></use>
                           </svg>
