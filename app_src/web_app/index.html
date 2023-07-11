@@ -344,7 +344,7 @@
   
   <div>
     <div id="map"></div>
-    <div id="popup" class="ol-popup">
+    <div id="popup" class="ol-popup" style="max-width: 32em;">
         <a href="#" id="popup-closer" class="ol-popup-closer"></a>
         <div id="popup-content"></div>
     </div>
@@ -362,8 +362,8 @@
         <div class="form-group col-md-6">
           <div class="select-wrapper">
             <label for="inputInquinante">Inquinante *</label>
-            <select id="inputInquinante" name="inputInquinante" required>
-              <option selected disabled hidden>-</option>
+            <select id="inputInquinante" name="inputInquinante" required="required">
+              <option value="" hidden>-</option>
               <option value="Pollutant spillage">Pollutant spillage</option>
               <option value="Presence of trash nearby / in the water">Presence of trash nearby / in the water</option>
               <option value="3">Presence of foam in the water</option>
@@ -380,7 +380,7 @@
       </div>
       <div class="row">
         <ul class="upload-pictures-wall">
-          <li>
+          <li style="margin-left: 14px;">
             <input type="file" name="upload_immagine" id="upload_immagine" class="upload pictures-wall" multiple="multiple" />
             <label for="upload_immagine">
               <svg class="icon icon-sm" aria-hidden="true"><use href="/bootstrap-italia/dist/svg/sprites.svg#it-plus"></use></svg>
@@ -391,8 +391,8 @@
       </div>
       <div class="row mt-4">
         <div class="form-group col text-center">
-          <input type="hidden" name="latitude" id="latitude"/>
-          <input type="hidden" name="longitude" id="longitude"/>
+          <input type="hidden" name="latitude" id="latitude" required/>
+          <input type="hidden" name="longitude" id="longitude" required/>
           <button type="button" class="btn btn-outline-primary">Annulla</button>
           <input type="submit" class="btn btn-primary" value="Conferma">
         </div>
