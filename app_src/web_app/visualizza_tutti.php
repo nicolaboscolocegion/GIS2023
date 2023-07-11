@@ -347,6 +347,43 @@ require_once("sessmgr.php");
       </div>
     </div>
   </div>
+
+  <div class="container my-4">
+    
+    <form method="POST" action="visualizza_tutti.php">
+    <div class="select-wrapper">
+    <label for="defaultSelectDisabled">Seleziona anno</label>
+    <select id="defaultSelectDisabled" name="anno" onchange="this.form.submit();">
+    <?php
+    
+    $servername = "localhost";
+    $username = "postgres";
+    $password = "***REMOVED***";
+    $dbname = "gis2023";
+
+
+    $conn = pg_connect("host=" . $servername . " port=5432 dbname=" . $dbname . " user=" . $username . " password=" . $password);
+
+    $result = pg_query($conn, "select distinct extract(year from data_report) as anno FROM reports;");
+    while ($arr = pg_fetch_array($result)) {
+      if (isset($_POST["anno"]) && $_POST["anno"] == $arr[0]) {
+        echo "<option value=\"" . $arr[0] . "\" selected>" . $arr[0] . "</option>";
+      }
+      else if (!isset($_POST["anno"]) && $arr[0] == date("Y")) {
+        echo "<option value=\"" . $arr[0] . "\" selected>" . $arr[0] . "</option>";
+      }
+      else {
+        echo "<option value=\"" . $arr[0] . "\">" . $arr[0] . "</option>";
+      }
+    }
+    
+    ?>
+    </select>
+  </div>
+
+    </form>
+
+  </div>
   
   <div>
   <?php
@@ -361,7 +398,14 @@ require_once("sessmgr.php");
     //$latitudes = "[";
     //$longitudes = "[";
     $i = 1;
-    $result = pg_query($conn, "SELECT id_report, data_report, ST_AsText (position) as pos, pollutant, report_description, nome_file, elevation FROM reports;");
+    $sql = "";
+    if (isset($_POST["anno"])) {
+      $sql = "SELECT id_report, data_report, ST_AsText (position) as pos, pollutant, report_description, nome_file, elevation FROM reports WHERE extract(year from data_report) = " . $_POST["anno"] . ";";
+    }
+    else {
+      $sql = "SELECT id_report, data_report, ST_AsText (position) as pos, pollutant, report_description, nome_file, elevation FROM reports WHERE extract(year from data_report) = " . date("Y") . ";";
+    }
+    $result = pg_query($conn, $sql);
     while ($arr = pg_fetch_array($result)) {
 
         $wft = substr($arr[2], 6);
