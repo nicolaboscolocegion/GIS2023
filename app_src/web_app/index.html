@@ -19,6 +19,7 @@
 
   <!-- App styles -->
   <link href="/css/main.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -139,7 +140,7 @@
                   </a>
                   <div class="link-list-wrapper collapse" id="menu1a">
                     <ul class="link-list">
-                      <li><a class="dropdown-item list-item" href="https://www.provincia.belluno.it/home">Torna alla Home</a></li>
+                      <li><a class="dropdown-item list-item" href="https://gis2023.bitsei.it">Torna alla Home</a></li>
               
                     </ul>
                   </div>
@@ -169,7 +170,7 @@
                   </div>
                 </div>
                 <div class="it-access-top-wrapper">
-                  <a class="btn btn-primary btn-sm" href="login.html">Accedi</a>
+                  <a class="btn btn-primary btn-sm" href="login.php">Accedi</a>
                 </div>
               </div>
             </div>
@@ -197,21 +198,21 @@
                     <span>Seguici su</span>
                     <ul>
                       <li>
-                        <a href="#" aria-label="Facebook" target="_blank">
+                        <a href="https://www.facebook.com/ProvinciaDiBelluno" aria-label="Facebook" target="_blank">
                           <svg class="icon">
                             <use href="bootstrap-italia/dist/svg/sprites.svg#it-facebook"></use>
                           </svg>
                         </a>
                       </li>
                       <li>
-                        <a href="#" aria-label="Github" target="_blank">
+                        <a href="https://github.com/nicolaboscolocegion/GIS2023" aria-label="Github" target="_blank">
                           <svg class="icon">
                             <use href="bootstrap-italia/dist/svg/sprites.svg#it-github"></use>
                           </svg>
                         </a>
                       </li>
                       <li>
-                        <a href="#" aria-label="Twitter" target="_blank">
+                        <a href="https://twitter.com/ProvinciaBL" aria-label="Twitter" target="_blank">
                           <svg class="icon">
                             <use href="bootstrap-italia/dist/svg/sprites.svg#it-twitter"></use>
                           </svg>
@@ -238,7 +239,7 @@
           <div class="row">
             <div class="col-12">
               <!--start nav-->
-              <nav class="navbar navbar-expand-lg has-megamenu" aria-label="Navigazione principale">
+              <!--<nav class="navbar navbar-expand-lg has-megamenu" aria-label="Navigazione principale">
                 <button class="custom-navbar-toggler" type="button" aria-controls="nav1" aria-expanded="false"
                   aria-label="Mostra/Nascondi la navigazione" data-bs-toggle="navbarcollapsible" data-bs-target="#nav1">
                   <svg class="icon bg-override">
@@ -255,7 +256,7 @@
                       </svg>
                     </button>
                   </div>
-                  <!--<div class="menu-wrapper">
+                  <div class="menu-wrapper">
                     <ul class="navbar-nav">
                       <li class="nav-item active"><a class="nav-link active" href="#" aria-current="page"><span>Link 1
                             (attivo)</span></a></li>
@@ -341,7 +342,24 @@
       </div>
     </div>
   </div>
-  
+
+  <script>
+
+$(document).ready(function(){
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showLocation);
+    }else{ 
+        $('#location').html('Geolocation is not supported by this browser.');
+    }
+});
+
+function showLocation(position){
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    fromDeviceCoord(latitude, longitude);
+}
+
+</script>
   <div>
     <div id="map"></div>
     <div id="popup" class="ol-popup" style="max-width: 32em;">
