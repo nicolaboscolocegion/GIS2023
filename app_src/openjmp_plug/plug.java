@@ -12,23 +12,16 @@ import com.vividsolutions.jump.workbench.model.Layer;
 import com.vividsolutions.jump.workbench.plugin.AbstractPlugIn;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
-import org.locationtech.jts.algorithm.Length;
+
 import org.locationtech.jts.geom.*;
-import org.locationtech.jts.util.GeometricShapeFactory;
+
 
 
 import com.vividsolutions.jump.workbench.ui.*;
 
 import java.util.List;
 
-import com.vividsolutions.jump.feature.*;
-import com.vividsolutions.jump.workbench.model.Layer;
-import com.vividsolutions.jump.workbench.plugin.AbstractPlugIn;
-import com.vividsolutions.jump.workbench.plugin.PlugInContext;
-import com.vividsolutions.jump.workbench.ui.plugin.FeatureInstaller;
-import org.locationtech.jts.geom.*;
-import org.locationtech.jts.util.GeometricShapeFactory;
-import org.openjump.core.geomutils.Circle;
+
 
 public class plug extends AbstractPlugIn {
 
@@ -51,32 +44,34 @@ public class plug extends AbstractPlugIn {
 	@Override
 	public boolean execute(PlugInContext context) throws Exception {
 		
+		Login login = new Login();
 		
-		
-		//calls the dialog for the selection layer
-		
-		MultiInputDialog mid = new MultiInputDialog(
-				context.getWorkbenchFrame(),
-				this.getName(), true );
-				String _namelayer = "Choose the layer to process";
-				mid.addLayerComboBox( _namelayer, null, context.getLayerManager() );
-				mid.setVisible( true ); // modal dialog
-				if( mid.wasOKPressed() == false ) return false;
-				
-		String name = mid.getText( _namelayer ); 
-		
-		if(name.equals("")) {
-			System.err.println("no layer");
+		if(login.getPassword()==null || login.getUserName()==null) {
+			System.err.println("Username or password not written");
 			return false;
 		}
 		
-		Layer inputLayer = context.getLayerManager().getLayer(name);
 		
-		List<String> reports = new LinkedList<String>();
+		Database app = new Database(login.getUserName() , login.getPassword());
+		
+		FeatureCollection reports = app.getReports();
+		context.getLayerManager().addLayer("Result", "reports", reports);
+		//calls the dialog for the selection layer
+		
+		FeatureCollection[] stations = app.getStations();
+		app.close();
+		
+		context.getLayerManager().addLayer("Result", "sensor1", stations[0]);
+		context.getLayerManager().addLayer("Result", "sensor2", stations[1]);
+		context.getLayerManager().addLayer("Result", "sensor3", stations[2]);
+		context.getLayerManager().addLayer("Result", "sensor4", stations[3]);
 		
 		
-		for(Feature f : inputLayer.getFeatureCollectionWrapper().getFeatures()) {
-			reports.add(f.getString("name"));
+		List<String> reportsNames = new LinkedList<String>();
+		
+		
+		for(Feature f : reports.getFeatures()) {
+			reportsNames.add(f.getString("id_report"));
 		}
 		
 	
@@ -85,7 +80,7 @@ public class plug extends AbstractPlugIn {
 				context.getWorkbenchFrame(),
 				this.getName(), true );
 				String _nameReport = "Choose the report to process";
-				mid1.addComboBox(_nameReport, reports.get(0), reports, "yes");
+				mid1.addComboBox(_nameReport, reportsNames.get(0), reportsNames, "yes");
 				mid1.setVisible( true ); // modal dialog
 				if( mid1.wasOKPressed() == false ) return false;
 		
@@ -93,10 +88,10 @@ public class plug extends AbstractPlugIn {
 		
 		Feature reportSelected=null;
 		
-		inputLayer.getFeatureCollectionWrapper().getFeatures().get(0).getSchema().getAttributeIndex("name");
-		for(Feature f : inputLayer.getFeatureCollectionWrapper().getFeatures()) {
+		
+		for(Feature f : reports.getFeatures()) {
 			
-			if(reportSelectedName.equals(f.getAttribute("name"))) {
+			if(reportSelectedName.equals(f.getString("id_report"))) {
 				reportSelected =f;
 			}	
 		}
@@ -112,20 +107,19 @@ public class plug extends AbstractPlugIn {
 		upstreamDistances[1]=-1;
 		double downstramDistant = -1;
 		
-		//for test
-		int reportAltitude= 700;
 		
-		List<Feature> stations = new LinkedList<Feature>();
+		
+		int reportAltitude= reportSelected.getInteger(reportSelected.getSchema().getAttributeIndex("elevation"));
+		
+		List<Feature> staionList = new LinkedList<Feature>();
 			
-		String[] stationLayers = {"idrografia-belluno-stazioni-fiumi-bio", "idrografia-belluno-stazioni-fiumi-chimico", "idrografia-belluno-stazioni-laghi-bio", "idrografia-belluno-stazioni-laghi-chimico"};
-
-		for(int i =0; i<stationLayers.length; i++) {
-			stations.addAll(context.getLayerManager().getLayer(stationLayers[i]).getFeatureCollectionWrapper().getFeatures());
-			
+		
+		for(FeatureCollection fc : stations) {
+			staionList.addAll(fc.getFeatures());
 		}
 		
 		//fid upstream and downstream nearest stations
-		for(Feature f : stations) {
+		for(Feature f : staionList) {
 			
 			int altitudeIndex = f.getSchema().getAttributeIndex("altitude");
 			double distanceTemp =0;
@@ -187,7 +181,7 @@ public class plug extends AbstractPlugIn {
 		fs.addAttribute("geo", AttributeType.GEOMETRY);
 		fs.addAttribute("cod_staz", AttributeType.DOUBLE);
 		
-		FeatureCollection fc = new FeatureDataset(fs);
+		FeatureCollection nearestStations = new FeatureDataset(fs);
 		
 		GeometryFactory gf =new GeometryFactory();
 		//create feature for nearest upstream monitor unit
@@ -197,7 +191,7 @@ public class plug extends AbstractPlugIn {
 			nearestMonitorUnit.setAttribute("type", "monitor unit");
 			nearestMonitorUnit.setAttribute("altitude", upstreamStations[0].getAttribute("altitude"));
 			nearestMonitorUnit.setAttribute("cod_staz", upstreamStations[0].getAttribute("cod_staz"));
-			fc.add(nearestMonitorUnit);
+			nearestStations.add(nearestMonitorUnit);
 			//create line
 			Feature line = new BasicFeature(fs);
 			Coordinate[] lineCoordinate= new Coordinate[2];
@@ -205,7 +199,7 @@ public class plug extends AbstractPlugIn {
 			lineCoordinate[1] = reportSelected.getGeometry().getCoordinate();
 			line.setGeometry(gf.createLineString(lineCoordinate));
 			line.setAttribute("type", "line");
-			fc.add(line);
+			nearestStations.add(line);
 		}
 		//create feature for second nearest upstream monitor unit
 		if(upstreamStations[1]!=null) {
@@ -214,7 +208,7 @@ public class plug extends AbstractPlugIn {
 			farMonitorUnit.setAttribute("type", "monitor unit");
 			farMonitorUnit.setAttribute("altitude", upstreamStations[1].getAttribute("altitude"));
 			farMonitorUnit.setAttribute("cod_staz", upstreamStations[1].getAttribute("cod_staz"));
-			fc.add(farMonitorUnit);
+			nearestStations.add(farMonitorUnit);
 			//create line
 			Feature line = new BasicFeature(fs);
 			Coordinate[] lineCoordinate= new Coordinate[2];
@@ -222,7 +216,7 @@ public class plug extends AbstractPlugIn {
 			lineCoordinate[1] = reportSelected.getGeometry().getCoordinate();
 			line.setGeometry(gf.createLineString(lineCoordinate));
 			line.setAttribute("type", "line");
-			fc.add(line);
+			nearestStations.add(line);
 		}
 		if(downstramStation!=null) {
 			//create feature for the nearest downstram unit
@@ -231,7 +225,7 @@ public class plug extends AbstractPlugIn {
 			downStreamMonitorUnit.setAttribute("type", "monitor unit");
 			downStreamMonitorUnit.setAttribute("altitude", downstramStation.getAttribute("altitude"));
 			downStreamMonitorUnit.setAttribute("cod_staz", downstramStation.getAttribute("cod_staz"));
-			fc.add(downStreamMonitorUnit);
+			nearestStations.add(downStreamMonitorUnit);
 			//create line
 			Feature line = new BasicFeature(fs);
 			Coordinate[] lineCoordinate= new Coordinate[2];
@@ -239,7 +233,7 @@ public class plug extends AbstractPlugIn {
 			lineCoordinate[1] = reportSelected.getGeometry().getCoordinate();
 			line.setGeometry(gf.createLineString(lineCoordinate));
 			line.setAttribute("type", "line");
-			fc.add(line);
+			nearestStations.add(line);
 		}
 		
 		//add report to the layer
@@ -247,17 +241,17 @@ public class plug extends AbstractPlugIn {
 		copyReport.setGeometry(reportSelected.getGeometry());
 		copyReport.setAttribute("type", "report");
 		copyReport.setAttribute("altitude", reportAltitude);
-		fc.add(copyReport);
+		nearestStations.add(copyReport);
 		
 		
 		
 		//finds all reports in the 500m range
-		Geometry bufferReport = reportSelected.getGeometry().buffer(500);
+		Geometry bufferReport = reportGeo.buffer(500);
 		
-		FeatureCollection nearReports = new FeatureDataset(inputLayer.getFeatureCollectionWrapper().getFeatures().get(0).getSchema().clone());
+		FeatureCollection nearReports = new FeatureDataset(reports.getFeatures().get(0).getSchema().clone());
 		
-		for(Feature r : inputLayer.getFeatureCollectionWrapper().getFeatures()) {
-			if(bufferReport.contains(r.getGeometry()) && !r.getAttribute("name").equals(reportSelectedName)) {
+		for(Feature r : reports.getFeatures()) {
+			if(bufferReport.contains(r.getGeometry()) && !r.getAttribute("id_report").equals(reportSelectedName)) {
 				nearReports.add(r.clone());
 				Feature line = new BasicFeature(fs);
 				Coordinate[] lineCoordinate= new Coordinate[2];
@@ -271,10 +265,9 @@ public class plug extends AbstractPlugIn {
 		nearReports.add(reportSelected.clone());
 		
 		//output layers
-		context.getLayerManager().addLayer("Result", "near stations", fc);
+		context.getLayerManager().addLayer("Result", "near stations", nearestStations);
 		
 		context.getLayerManager().addLayer("Result", "near reports", nearReports);
-
 		
 		
 		return false;
