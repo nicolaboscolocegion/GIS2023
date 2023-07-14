@@ -47,10 +47,10 @@
 
 
     if (isset($_POST["inputUlterioriInfo"]) && $_POST["inputUlterioriInfo"] != "" && $_POST["inputUlterioriInfo"] != NULL) {
-        $result = pg_query($conn, "INSERT INTO reports (data_report, position, pollutant, report_description, elevation) VALUES ('" . date("Y-m-d") . "', ST_GeomFromText('POINT(" . $_POST["latitude"] . " " . $_POST["longitude"] . ")', 3003), '" . $_POST["inputInquinante"] . "', '" . $_POST["inputUlterioriInfo"] . "', " . $elevation . ") RETURNING id_report;");
+        $result = pg_query($conn, "INSERT INTO reports (data_report, position, pollutant, report_description, elevation) VALUES ('" . date("Y-m-d") . "', ST_GeomFromText('POINT(" . $_POST["latitude"] . " " . $_POST["longitude"] . ")', 3857), '" . $_POST["inputInquinante"] . "', '" . $_POST["inputUlterioriInfo"] . "', " . $elevation . ") RETURNING id_report;");
     }
     else {
-        $result = pg_query($conn, "INSERT INTO reports (data_report, position, pollutant, elevation) VALUES ('" . date("Y-m-d") . "', ST_GeomFromText('POINT(" . $_POST["latitude"] . " " . $_POST["longitude"] . ")', 3003), '" . $_POST["inputInquinante"] . "', " . $elevation . ") RETURNING id_report;");
+        $result = pg_query($conn, "INSERT INTO reports (data_report, position, pollutant, elevation) VALUES ('" . date("Y-m-d") . "', ST_GeomFromText('POINT(" . $_POST["latitude"] . " " . $_POST["longitude"] . ")', 3857), '" . $_POST["inputInquinante"] . "', " . $elevation . ") RETURNING id_report;");
     }
 
 
