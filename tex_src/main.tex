@@ -1,38 +1,29 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[top=3cm, bottom=3cm, left = 2cm, right = 2cm]{geometry} 
+\geometry{a4paper} 
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{graphicx} 
+\usepackage{amsmath,amssymb}  
+\usepackage{bm}  
+\usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}  
+\hypersetup{linkcolor=black,citecolor=black,filecolor=black,urlcolor=black} % black links, for printed output
+\usepackage{memhfixc} 
+\usepackage{pdfsync}  
+\usepackage{fancyhdr}
+\pagestyle{fancy}
 
-
-%\documentclass[12pt,a4paper]{article}
-
-\documentclass[
-12pt, % Main document font size
-a4paper, % Paper type, use 'letterpaper' for US Letter paper
-%twoside, % Two page layout (page indentation for binding and different headers)
-headinclude,footinclude, % Extra spacing for the header and footer
-BCOR5mm, % Binding correction
-]{scrartcl}
-
-\input{structure.tex}
-
-
-
-% Includes the file which contains all the document configurations and packages - make sure to edit this file
-
-
-\title{GIS SYSTEM}
-\author{Boscolo Nicola Mirco Cazzaro}
-
+\title{GIS Hydrography Management System for Provincial Waters}
+\author{Boscolo Cegion Nicola}
+\author{Cazzaro Mirco, Boscolo Cegion Nicola}
+%\date{}
 
 \begin{document}
-
 \maketitle
-
-
-\clearpage
 \tableofcontents
 
-\include{sezioni/1case_of_study}
-\include{sezioni/2starting_situation}
-
-\include{sezioni/3working_hypotesis.tex}
-\include{sezioni/4preliminary_project}
-
+\include{sezioni/objectives}
+\include{sezioni/requirements}
+\include{sezioni/starting_situation}
+\include{sezioni/working_hypotesis}
 \end{document}
