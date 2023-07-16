@@ -20,7 +20,9 @@ import org.locationtech.jts.io.WKTReader;
 
 
 
-
+/**
+ * Class for manage database query
+ */
 public class Database {
 
 	
@@ -30,8 +32,6 @@ public class Database {
 	    private Connection con;
 	    /**
 	     * Connect to the PostgreSQL database
-	     *
-	     * @return a Connection object
 	     */
 	    
 	    public Database(String username, char[] password) {
@@ -44,26 +44,10 @@ public class Database {
 	    }
 	    
 	    
-	    
-	    
-	    public void viewTable() throws SQLException {
-	        String query = "select * from public.reports";
-	        try (Statement stmt = con.createStatement()) {
-	          ResultSet rs = stmt.executeQuery(query);
-	          while (rs.next()) {
-	            int id_report = rs.getInt("id_report");
-	            String data_report = rs.getString("data_report");
-	            String position = rs.getString("position");
-	            String report_description = rs.getString("report_description");
-	            String nome_file = rs.getString("nome_file");
-	            System.out.println(id_report+data_report+position+report_description+nome_file);
-	          }
-	        } catch (SQLException e) {
-	        	System.err.println(e);
-	        }
-	      }
-	    
-	    
+	    /**
+		 * Retrives the feature collection with all the reports
+		 * @return a @code{FeatureCollection} with all the reports
+		 */
 	    public FeatureCollection getReports(){
 	    	
 	    	FeatureSchema fs= new FeatureSchema();
@@ -116,7 +100,10 @@ public class Database {
 			return fc;
 	    }
 	    
-	    
+	    /**
+		 * Retrives the feature collection with all the monitor units
+		 * @return a @code{FeatureCollection} with all the monitor units, there are 4 groups that are the 4 groups of the database
+		 */
 	    public FeatureCollection[] getStations(){
 	    	
 	    	
@@ -211,6 +198,10 @@ public class Database {
 			return stations;
 	    }
 	    
+		/**
+		 * close the connetion
+		 * @return @code{true} if the connetion is closed
+		 */
 	    public boolean close() {
 		    try{
 		    	con.close();
@@ -220,14 +211,6 @@ public class Database {
 		    }
 	    }
 	    
-	    public static void main(String[] args) throws SQLException {
-	    	 
-	    	
-			
-				
-	    	
-	        
-	    }
 }
 
 
