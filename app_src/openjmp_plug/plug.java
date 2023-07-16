@@ -26,7 +26,9 @@ import java.util.List;
 public class plug extends AbstractPlugIn {
 
 	
-	
+	/**
+	 * inizialize the plugin
+	 */
 	@Override
 	public void initialize(PlugInContext context) throws Exception {
 		
@@ -41,6 +43,10 @@ public class plug extends AbstractPlugIn {
 			null );
 	}
 	
+	/**
+	 * this plugin let's the use choose a report and it finds the 3 nearest stations 
+	 * then it finds all the report near it in a range of 500m
+	 */
 	@Override
 	public boolean execute(PlugInContext context) throws Exception {
 		
@@ -273,10 +279,13 @@ public class plug extends AbstractPlugIn {
 		return false;
 	}
 	
-	
+	/**
+	 * gets the name of the plugin
+	 * @return the string
+	 */
 	@Override
 	public String getName() {
 		//name of the plug
-		return "super plug";
+		return "Re";
 	}
 }
