@@ -31,12 +31,15 @@ public class Login extends JDialog implements ActionListener {
       password_text = new JPasswordField();
       //Submit
       submit = new JButton("LOGIN");
+      JPanel buttonPanel = new JPanel();
+      buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+      buttonPanel.add(submit);
       panel = new JPanel(new GridLayout(3, 1));
       panel.add(user_label);
       panel.add(userName_text);
       panel.add(password_label);
       panel.add(password_text);
-      panel.add(submit);
+      panel.add(buttonPanel,BorderLayout.CENTER);
       
       //Adding the listeners to components
       submit.addActionListener(this);
