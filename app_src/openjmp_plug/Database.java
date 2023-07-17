@@ -198,6 +198,14 @@ public class Database {
 			return stations;
 	    }
 	    
+	    /**
+	     * info if the connection is established 
+	     * @return true if is established
+	     */
+	    public boolean isConnetted() {
+	    	return con!=null;
+	    }
+	    
 		/**
 		 * close the connetion
 		 * @return @code{true} if the connetion is closed

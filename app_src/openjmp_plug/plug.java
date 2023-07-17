@@ -21,6 +21,9 @@ import com.vividsolutions.jump.workbench.ui.*;
 
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 
 
 public class plug extends AbstractPlugIn {
@@ -60,6 +63,16 @@ public class plug extends AbstractPlugIn {
 		
 		Database app = new Database(login.getUserName() , login.getPassword());
 		
+		if(app.isConnetted()==false) {
+			System.err.println("database not conneted");
+			JOptionPane.showMessageDialog(new JFrame(),
+				    "Username or password not corret",
+				    "Error",
+				    JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+			
+		
 		FeatureCollection reports = app.getReports();
 		context.getLayerManager().addLayer("Result", "reports", reports);
 		//calls the dialog for the selection layer
@@ -67,10 +80,10 @@ public class plug extends AbstractPlugIn {
 		FeatureCollection[] stations = app.getStations();
 		app.close();
 		
-		context.getLayerManager().addLayer("Result", "sensor1", stations[0]);
-		context.getLayerManager().addLayer("Result", "sensor2", stations[1]);
-		context.getLayerManager().addLayer("Result", "sensor3", stations[2]);
-		context.getLayerManager().addLayer("Result", "sensor4", stations[3]);
+		context.getLayerManager().addLayer("MonitorUnits", "sensor1", stations[0]);
+		context.getLayerManager().addLayer("MonitorUnits", "sensor2", stations[1]);
+		context.getLayerManager().addLayer("MonitorUnits", "sensor3", stations[2]);
+		context.getLayerManager().addLayer("MonitorUnits", "sensor4", stations[3]);
 		
 		
 		List<String> reportsNames = new LinkedList<String>();
@@ -286,6 +299,6 @@ public class plug extends AbstractPlugIn {
 	@Override
 	public String getName() {
 		//name of the plug
-		return "Re";
+		return "Report scanning";
 	}
 }
