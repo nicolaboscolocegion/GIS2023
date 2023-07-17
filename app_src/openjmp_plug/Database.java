@@ -26,7 +26,7 @@ import org.locationtech.jts.io.WKTReader;
 public class Database {
 
 	
-	    private final String url = "jdbc:postgresql://gis2023.bitsei.it:5432/gis2023";
+	    private static final String url = "jdbc:postgresql://gis2023.bitsei.it:5432/gis2023";
 	  
 
 	    private Connection con;
@@ -202,9 +202,7 @@ public class Database {
 	     * info if the connection is established 
 	     * @return true if is established
 	     */
-	    public boolean isConnetted() {
-	    	return con!=null;
-	    }
+	    public boolean isConnetted() {return con!=null;}
 	    
 		/**
 		 * close the connetion

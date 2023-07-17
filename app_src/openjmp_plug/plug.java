@@ -56,7 +56,7 @@ public class plug extends AbstractPlugIn {
 		Login login = new Login();
 		
 		if(login.getPassword()==null || login.getUserName()==null) {
-			System.err.println("Username or password not written");
+			System.err.println("Username or password not correct");
 			return false;
 		}
 		
@@ -281,7 +281,7 @@ public class plug extends AbstractPlugIn {
 			}
 		}
 		
-		nearReports.add(reportSelected.clone());
+		
 		
 		//output layers
 		context.getLayerManager().addLayer("Result", "near stations", nearestStations);
