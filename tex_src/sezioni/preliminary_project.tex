@@ -105,3 +105,42 @@ This kind of initial support is by the way provided by our company and so no tut
 \subsection{Database}
 \subsubsection{ER Schema}
 \begin{center} \includegraphics[width=\textwidth]{img/ERSchema.png} \label{er} \end{center}
+
+
+
+\subsection{OpenJUMP Plugin}
+
+\subsubsection{How to use it}
+
+As specified we will use OpenJUMP as GIS software, the open source nature of OpenJUMP grants us the full acessibilty of it's interfacess for 2D geometry manipulation.
+The Output layers will be located in the "Result" folder. All the relevant data inside the database will be loaded in OpenJUMP so the tecnichian can see all the informations about reports and monitor units.
+The plugin will work as the following:
+
+\begin{enumerate}
+    \item Te user will launch the plugin.
+    \item The plugin will ask for the credentials of the database fig:[\ref{optuTorial1}]. 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{img/op1.png} \caption{Database login} \label{optuTorial1}
+    \end{figure}
+    \item The plugin will load the layers of the reports and monitor units.
+    \item The user will choose the report to visualize fig:[\ref{optuTorial2}].
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{img/op2.png} \caption{Report selection} \label{optuTorial2}
+    \end{figure}
+
+    \item The plugin will find the nearest tree monitor units to the report (two uptream one downstram) and they will be conetted to the report choseen fig:[\ref{optuTorial3}].
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{img/op3.png} \caption{Report connetions} \label{optuTorial3}
+    \end{figure}
+
+    \item The plugin will find all the report in a range of 500m and they will be conetted to the report choseen.
+  \end{enumerate}
+
+
+
+
+
+
