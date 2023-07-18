@@ -365,7 +365,7 @@ require_once("sessmgr.php");
     
     $servername = "localhost";
     $username = "postgres";
-    $password = "FruitNinja23!";
+    $password = "***REMOVED***";
     $dbname = "gis2023";
 
 
@@ -407,7 +407,7 @@ require_once("sessmgr.php");
     
     $servername = "localhost";
     $username = "postgres";
-    $password = "FruitNinja23!";
+    $password = "***REMOVED***";
     $dbname = "gis2023";
 
 
