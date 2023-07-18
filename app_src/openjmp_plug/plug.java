@@ -55,8 +55,9 @@ public class plug extends AbstractPlugIn {
 		
 		Login login = new Login();
 		
+		
 		if(login.getPassword()==null || login.getUserName()==null) {
-			System.err.println("Username or password not correct");
+			System.err.println("username or password not insert");
 			return false;
 		}
 		
