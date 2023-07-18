@@ -41,7 +41,7 @@ The core of the system will be the web application: since it has to deliver to t
 \end{itemize}
 
 \subsubsection{Hardware requirements}
-To support the functioning of the web application also from the exterior of the provincial organization, because of the active citizenship policy, but also to facilitate eventual and future possibilities of smart working activities of the provincial employees, a concrete possibility is the one of setting up a public private server hosted on the cloud: this possibility can be delivered both from a provate hosting company, with a cost that has to be kept in consideration, or by the availability of some italian server infrastructure, if any.
+To support the functioning of the web application also from the exterior of the provincial organization, because of the active citizenship policy, but also to facilitate eventual and future possibilities of smart working activities of the provincial employees, a concrete possibility is the one of setting up a virtual private server hosted on the cloud: this possibility can be delivered both from a provate hosting company, with a cost that has to be kept in consideration, or by the availability of some italian server infrastructure, if any.
 The fact that the customer already owns a PostgreSQL database in their servers, can suggest to use them as hosting machines also for the system, but this can led to security problems since can be that the machines are used also for other purposes, and the data traffic coming from the new system can cause slowdowns of the machine or worse, of the provincial office network. A solution to this can be to keep the data on the legacy database and tunnel the traffic between the new private server and the native machine whenever interactions with database are necessary, or to replicate the data we are interested on on a new instance of PostgreSQL running on the dedicate new private server.
 
 \subsubsection{Software requirements}
@@ -101,3 +101,7 @@ Switching to the perspective of the provincial technicians we have the following
 \subsubsection{OpenJUMP plugins}
 Differently from the webapp, here a specific initial configuration on the user's terminals needs to be setted up.
 This kind of initial support is by the way provided by our company and so no tutorial needs to be included in this document.
+
+\subsection{Database}
+\subsubsection{ER Schema}
+\begin{center} \includegraphics[width=\textwidth]{img/ERSchema.png} \label{er} \end{center}
