@@ -5,7 +5,7 @@ Provincial water
 An Italian province, with a large mountain area, wants to create an information system for hydrography management.
 
 ## Content of the repo
-```bash
+```
 ├── README.md
 ├── app_src
 │   ├── database -> sql file with the database schema
