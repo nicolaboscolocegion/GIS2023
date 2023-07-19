@@ -23,7 +23,10 @@ A live demo can be found here:
 
 ## How to run
 
-### Web app 
+### Web app
+
+Use [PostgreSQL](https://www.postgresql.org/) and install [PostGIS](http://postgis.net/),<br>
+Import the database schema found in: `app_src/database/database.sql`
 
 Use apache web server to run the php application, just put the `web_app` folder inside the `htdocs` and go to `localhost://web_app`
 
