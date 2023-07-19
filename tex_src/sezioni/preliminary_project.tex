@@ -102,14 +102,6 @@ Switching to the perspective of the provincial technicians we have the following
 Differently from the webapp, here a specific initial configuration on the user's terminals needs to be setted up.
 This kind of initial support is by the way provided by our company and so no tutorial needs to be included in this document.
 
-\subsection{Database}
-\subsubsection{ER Schema}
-\begin{center} \includegraphics[width=\textwidth]{img/ERSchema.png} \label{er} \end{center}
-
-
-
-\subsection{OpenJUMP Plugin}
-
 \subsubsection{How to use it}
 
 As specified we will use OpenJUMP as GIS software, the open source nature of OpenJUMP grants us the full acessibilty of it's interfacess for 2D geometry manipulation.
@@ -117,28 +109,71 @@ The Output layers will be located in the "Result" folder. All the relevant data 
 The plugin will work as the following:
 
 \begin{enumerate}
-    \item Te user will launch the plugin.
-    \item The plugin will ask for the credentials of the database fig:[\ref{optuTorial1}]. 
+    \item The user will launch the plugin.
+    \item The plugin will ask for the credentials for database connection fig:[\ref{optuTorial1}]. 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=\textwidth]{img/op1.png} \caption{Database login} \label{optuTorial1}
+        \includegraphics[width=27em]{img/op1.png} \caption{Database login} \label{optuTorial1}
     \end{figure}
     \item The plugin will load the layers of the reports and monitor units.
     \item The user will choose the report to visualize fig:[\ref{optuTorial2}].
     \begin{figure}[H]
         \centering
-        \includegraphics[width=\textwidth]{img/op2.png} \caption{Report selection} \label{optuTorial2}
+        \includegraphics[width=27em]{img/op2.png} \caption{Report selection} \label{optuTorial2}
     \end{figure}
 
-    \item The plugin will find the nearest tree monitor units to the report (two uptream one downstram) and they will be conetted to the report choseen fig:[\ref{optuTorial3}].
+    \item The plugin will find the closest three monitor units to the report position (two upstream one downstream) and they will be linked to the position of the report chosen fig:[\ref{optuTorial3}].
     \begin{figure}[H]
         \centering
-        \includegraphics[width=\textwidth]{img/op3.png} \caption{Report connetions} \label{optuTorial3}
+        \includegraphics[width=27em]{img/op3.png} \caption{Report connetions} \label{optuTorial3}
     \end{figure}
 
-    \item The plugin will find all the report in a range of 500m and they will be conetted to the report choseen.
-  \end{enumerate}
+    \item The plugin will find all the reports in a range of 500 meters and they will be linked to the report chosen.
+\end{enumerate}
 
+
+\subsection{Database}
+\subsubsection{ER Schema}
+\begin{center} \includegraphics[width=\textwidth]{img/ERSchema.png} \label{er} \end{center}
+
+\subsubsection{Description of entities and relationships}
+As the schema displays, we can see that six of the entities are related to each shapefile regarding data coming from the Region of Veneto and ARPA Veneto.
+For what concerns spatial data representing rivers and lakes, the entities are:
+\begin{itemize}
+    \item \textit{idrografia-belluno-elidr};
+    \item \textit{idrografia-belluno-spacq};
+\end{itemize}
+The relations that are related to the 4 different typologies of monitoring units instead are:
+z\begin{itemize}
+    \item \textit{idrografia-belluno-stazioni-laghi-bio};
+    \item \textit{idrografia-belluno-stazioni-fiumi-bio};
+    \item \textit{idrografia-belluno-stazioni-laghi-chimico};
+    \item \textit{idrografia-belluno-stazioni-fiumi-chimico}.
+\end{itemize}
+As it is visible from the schema, these entities are in relation with the entity \textit{interventi}. This entity represents a maintenance event made by one technincian phisically on a monitoring unit. Due to the limitation of the E-R representation, another constraint need to be exploited: each record in \textit{interventi} has at least and at most one foreign key relation with one record in one of the four stations entities.
+An \textit{intervento} is made by one connected \textit{user}: this entity holds data and credentials of each user (technicians and employees) of the provincial office. \\
+As a technician user is in charge of making an \textit{intervento}, an employee of the provincial office is in charge (between all) of managing the insertion and the deletion of intakes into rivers and lakes. Intakes are represented by the \textit{influssi} entity, with all the data necessary to represent them. Since a company can release from an intake many different substances, the representation of them in an dedicated entity was necessary: this imply that employee will need to insert, delete or update polluting substances (\textit{sostanze}) separately. \\
+
+Lastly, two important but not relationed entities are in the database:
+\begin{itemize}
+    \item \textit{reports}: this entity records all the reports made by the citizens. Between all the field, a \textit{relevance} field is set to allow future installation of an external software (based on AI technologies) that will be able to assign a relevance score to each report.
+    \item \textit{letture}: this entity records the data read from the ten public web gateways that collect the information from the 90 monitoring units. The recording operation of this data is necessary because of the historicization and interrogation requirement.
+\end{itemize}
+
+\subsubsection{Data volumes}
+The last two described entities (\textit{reports} and \textit{letture}), differently from the others, can require a lot of disk space on the system server.
+A specific analysis of space needed for the reports cannot be exact and neither estimated until we do not have some statistics on the popularity of the system among the citizens: an approach can be to allocate a quite big amount of space initially and to observe the usage in the first months after the installation of the system, so to reduce or increase it. \\
+For the \textit{letture} entity is instead possible a more precise estimation: since a separated script in charge of periodically read data from the web gateways and write them on the database will be set up, by knowing the reading frequency (assuming in seconds) of the monitoring units, and assuming an history of one year in the database, the space required from this entity will possibly be: \\
+\begin{center}
+    \begin{math}
+        Space = 60\cdot\frac{86400}{Frequency}\cdot365\cdot90
+    \end{math}
+    \label{letture_space}
+\end{center}
+Where \textit{60} is our estimation in byte of the size of a record, \(\frac{86400}{Frequency}\) is the number of readings per day and \textit{90} is the number of monitoring units [\ref{letture_space}].
+    
+\subsubsection{Final considerations}
+It is important to keep in mind that even if many relations seem to be missing (i.e. an intake is not linked to the corresponding river nor lake, etc.), a topological database like this can rely on the implicit spatial relations that can be detected in the logic of the application by using topological libraries (i.e. \textit{JTS}) or directly using \textit{PostGIS} functions. 
 
 
 
