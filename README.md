@@ -1,6 +1,8 @@
 
 # GIS2023
-Provincial water
+UNIPD project for Geographic Information System course:
+
+### Provincial water
 
 An Italian province, with a large mountain area, wants to create an information system for hydrography management.
 
@@ -21,11 +23,11 @@ A live demo can be found here:
 
 ## How to run
 
-### Web server 
+### Web app 
 
 Use apache web server to run the php application, just put the `web_app` folder inside the `htdocs` and go to `localhost://web_app`
 
-### Openjump plugin
+### OpenJUMP plugin
 
 Create a package `openjmp_plug` and put inside all the content found in `openjmp_plug`.
 Then add the plugin in your `plugins.xml` and add the plugin reference:
@@ -42,3 +44,6 @@ Then run openJUMP with the right options inside your IDE
 
 You can find the complete project report with a guide for how to use it here: [report](tex_src/main.pdf)
 
+## Credits
+
+Bootstrap template: [bootstrap-italia-playground](https://github.com/italia/bootstrap-italia-playground/tree/main)
