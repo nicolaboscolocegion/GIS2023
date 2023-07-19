@@ -46,4 +46,4 @@ You can find the complete project report with a guide for how to use it here: [r
 
 ## Credits
 
-Bootstrap template: [bootstrap-italia-playground](https://github.com/italia/bootstrap-italia-playground/tree/main)
+Web app Bootstrap template: [bootstrap-italia-playground](https://github.com/italia/bootstrap-italia-playground/tree/main)
