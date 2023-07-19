@@ -10,7 +10,7 @@ An Italian province, with a large mountain area, wants to create an information 
 ├── app_src
 │   ├── database -> sql file with the database schema
 │   ├── openjmp_plug -> openjump plugin code
-│   └── web_app ->w eb app code
+│   └── web_app -> web app code
 └── tex_src -> report 
 ```
 
