@@ -11,11 +11,27 @@ In the Gantt chart are shown all the activities necessary to reach the final goa
 This hypotesis does not take care of the number of working resources (software engineers or programmers) available for the execution, that can led to a more constrained execution due to many parallelized activities. \\
 Activities coloured in pink represents the \textit{critical path}, that are the ones in which a delay can led to a delay of the whole project.
 
-\subsection{Deliverables}
+\subsubsection{Deliverables}
 From the Gantt chart is visible that three main milestone are present in the timeline of the project: these coincides with three different \textit{deliverables}, that are three tangible and atomically usable parts of the system.\\
 In particular:
 \begin{itemize}
-    \item \textbf{05/10}: this deliverable coincides with the delivery of the hydrography and intakes management functionalities. Theoretically, from this date the provincial emplyees can start to use and to test this subpart of the system;
-    \item \textbf{20/09}: this deliverable coincides with the delivery of the automatic data reading subsystem from the web gateways and the email alert system. Theoretically, from this date the provincial emplyees can start to use and to test this subpart of the system;
-    \item \textbf{21/09}: this deliverable coincides with the delivery of the reporting subsystem for the citizenship and its backend and desktop management functionalities. Theoretically, from this date the provincial emplyees can start to use and to test this subpart of the system.
+    \item \textbf{05/10}: this milestone coincides with the delivery of the hydrography and intakes management functionalities. Theoretically, from this date the provincial emplyees can start to use and to test this subpart of the system;
+    \item \textbf{20/09}: this milestone coincides with the delivery of the automatic data reading subsystem from the web gateways and the email alert system. Theoretically, from this date the provincial emplyees can start to use and to test this subpart of the system;
+    \item \textbf{21/09}: this milestone coincides with the delivery of the reporting subsystem for the citizenship and its backend and desktop management functionalities. Theoretically, from this date the provincial emplyees can start to use and to test this subpart of the system.
 \end{itemize}
+
+\subsection{Risk management}
+Many activities can be conducted to study risks in a project. One possible approach can be to conduct a \textit{FMEA} analysis, but the size of the actual project is not so big to justify such an extensive analysis. \\
+A better approach for the actual project has been found in filling a risk register.
+\subsubsection{Risk matrix}
+
+\subsubsection{Risk register}
+\begin{center}
+    \begin{tabularx}{\textwidth}{|c|c|c|c|c|c|c|c|}
+     DESCRIPTION & CAUSE & EFFECT/DAMAGE & PROBABILITY & IMPACT & LEVEL & ACTION \\ 
+     Data breach & Malicious intrusion with the purpose of steal data & Sensible data exiting from the system & L & M & L & Mitigate \\
+     Denial of service & Malicious will of attackers of blocking the system & Unavailability of the system & L & H & M & Mitigate \\
+     Monitoring unit malfunctioning & Broken sensor not detected that returns uncorrect data & Uncorrect alerts sent by mail & L & H & M & Transfer \\
+     Fake reporting & Malicious will from citizens to report unreal polluting events & Untrustable data & M & M & M & Accept \\
+    \end{tabularx}
+\end{center}
