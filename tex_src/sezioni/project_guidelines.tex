@@ -26,12 +26,16 @@ A better approach for the actual project has been found in filling a risk regist
 \subsubsection{Risk matrix}
 
 \subsubsection{Risk register}
-\begin{center}
-    \begin{tabularx}{\textwidth}{|c|c|c|c|c|c|c|c|}
-     DESCRIPTION & CAUSE & EFFECT/DAMAGE & PROBABILITY & IMPACT & LEVEL & ACTION \\ 
-     Data breach & Malicious intrusion with the purpose of steal data & Sensible data exiting from the system & L & M & L & Mitigate \\
-     Denial of service & Malicious will of attackers of blocking the system & Unavailability of the system & L & H & M & Mitigate \\
-     Monitoring unit malfunctioning & Broken sensor not detected that returns uncorrect data & Uncorrect alerts sent by mail & L & H & M & Transfer \\
-     Fake reporting & Malicious will from citizens to report unreal polluting events & Untrustable data & M & M & M & Accept \\
+\begin{table}[H]
+    \centering
+    
+    \begin{tabularx}{\columnwidth}{|X|X|X|c|c|c|c|}
+    \hline
+    DESCRIPTION & CAUSE &  DAMAGE & PROB & IMPACT & LEVEL & ACTION \\ \hline
+    Data breach & Malicious intrusion with the purpose of steal data & Sensible data exiting from the system & L & M & L & Mitigate \\ \hline
+    Denial of service & Malicious will of attackers of blocking the system & Unavailability of the system & L & H & M & Mitigate \\ \hline
+    Monitoring unit malfunctioning & Broken sensor not detected that returns uncorrect data & Uncorrect alerts sent by mail & L & H & M & Transfer \\ \hline
+    Fake reporting & Malicious will from citizens to report unreal polluting events & Untrustable data & M & M & M & Accept \\ \hline
+    
     \end{tabularx}
-\end{center}
+\end{table}
