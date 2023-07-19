@@ -27,11 +27,18 @@ Use apache web server to run the php application, just put the `web_app` folder 
 
 ### Openjump plugin
 
-Create a package `openjmp_plug`{:.java} and put inside all the content found in `openjmp_plug`.
-Then add the plugin in your `plugins.xml` and add `<plug-in>openjmp_plug.plug</plug-in>`{:.xml}
+Create a package `openjmp_plug` and put inside all the content found in `openjmp_plug`.
+Then add the plugin in your `plugins.xml` and add the plugin reference:
+```xml 
+<workbanch>
+    ...
+    <plug-in>openjmp_plug.plug</plug-in>
+    ...
+</workbanch>
+```
 Then run openJUMP with the right options inside your IDE
 
 ## How to use it
 
-You can find the complete project report with a guide for how to use it here: `tex_src/main.pdf`
+You can find the complete project report with a guide for how to use it here: [report](tex_src/main.pdf)
 
