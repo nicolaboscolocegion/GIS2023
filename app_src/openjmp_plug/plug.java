@@ -30,7 +30,7 @@ import javax.swing.JOptionPane;
  * @author nicolaboscolo
  *
  */
-public class plug extends AbstractPlugIn {
+public class Plug extends AbstractPlugIn {
 
 	
 	/**
