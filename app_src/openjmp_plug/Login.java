@@ -5,7 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * class for makking a login for the database
+ * Class for making a login for the database
+ * @author nicolaboscolo
  */
 public class Login extends JDialog implements ActionListener {
    JPanel panel;

@@ -22,6 +22,7 @@ import org.locationtech.jts.io.WKTReader;
 
 /**
  * Class for manage database query
+ * @author nicolaboscolo
  */
 public class Database {
 
@@ -67,7 +68,7 @@ public class Database {
 			
 			WKTReader wkt = new WKTReader(gf);
 			
-			//String query = "SELECT data_report, pollutant, report_description, ST_AsText (position, 4326) as pos, id_report, elevation FROM reports";
+			//String query = "SELECT data_report, pollution, report_description, ST_AsText (position, 4326) as pos, id_report, elevation FROM reports";
 			String query = "SELECT  ST_AsText(ST_Transform(position, 3003)) as pos, *FROM reports";
 
 			
@@ -205,8 +206,8 @@ public class Database {
 	    public boolean isConnetted() {return con!=null;}
 	    
 		/**
-		 * close the connetion
-		 * @return @code{true} if the connetion is closed
+		 * close the connection
+		 * @return @code{true} if the connection is closed
 		 */
 	    public boolean close() {
 		    try{

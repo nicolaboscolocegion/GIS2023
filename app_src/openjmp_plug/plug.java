@@ -25,12 +25,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
-
+/**
+ * Plugin class
+ * @author nicolaboscolo
+ *
+ */
 public class plug extends AbstractPlugIn {
 
 	
 	/**
-	 * inizialize the plugin
+	 * Initialize the plugin
 	 */
 	@Override
 	public void initialize(PlugInContext context) throws Exception {
