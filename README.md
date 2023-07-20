@@ -11,7 +11,8 @@ An Italian province, with a large mountain area, wants to create an information 
 ├── README.md
 ├── app_src
 │   ├── database -> sql file with the database schema
-│   ├── openjmp_plug -> openjump plugin code
+│   ├── javadoc -> documentation for openJUMP plugin 
+│   ├── openjmp_plug -> openJUMP plugin code
 │   └── web_app -> web app code
 └── tex_src -> report 
 ```
