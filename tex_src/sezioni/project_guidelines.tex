@@ -2,9 +2,12 @@
 \subsection{Deployment plan}
 \subsubsection{Scheduling and Timeframes}
    
-\begin{center}
+\begin{figure}[H]
+    \centering
     \includegraphics[width=\textwidth]{img/gantt.png}
-\end{center}
+    \caption{Gantt chart}
+    \label{Gantt}
+\end{figure}
 
 \subsubsection{Description}
 In the Gantt chart are shown all the activities necessary to reach the final goal; the working hypotesis is to start the project by the 1st of September 2023 with the sever configuration procedures and then finish up everything (if no delays happens) by the 12th of October: the whole execution then should take around one month and a half.
@@ -20,6 +23,7 @@ In particular:
     \item \textbf{21/09}: this milestone coincides with the delivery of the reporting subsystem for the citizenship and its backend and desktop management functionalities. Theoretically, from this date the provincial emplyees can start to use and to test this subpart of the system.
 \end{itemize}
 
+\pagebreak
 \subsection{Risk management}
 Many activities can be conducted to study risks in a project. One possible approach can be to conduct a \textit{FMEA} analysis, but the size of the actual project is not so big to justify such an extensive analysis. \\
 A better approach for the actual project has been found in filling a risk register.
@@ -35,6 +39,8 @@ To evaluate the level of a risk (in a scale of three levels, \textit{low}, \text
     \multicolumn{1}{|l|}{}                   & Medium & \cellcolor{green!25}Low    & \cellcolor{orange!25}Medium & \cellcolor{red!25}High   \\ \cline{2-5} 
     \multicolumn{1}{|l|}{}                   & Low    & \cellcolor{green!25}Low    & \cellcolor{green!25}Low    & \cellcolor{orange!25}Medium \\ \hline
     \end{tabular}
+    \caption{Risk Matrix}
+    \label{matrix}
 \end{table}
 
 \subsubsection{Risk register}
@@ -49,8 +55,11 @@ To evaluate the level of a risk (in a scale of three levels, \textit{low}, \text
     Impossibility of data acquisition & Unit readings not returned due to mobile network malfunctions & Missing pollutants monitoring in a certain unit of time & \cellcolor{green!25}L & \cellcolor{red!25}H & \cellcolor{orange!25}M & Transfer \\ \hline
     Fake reporting & Malicious will from citizens to report unreal alterations & Untrustable data & \cellcolor{orange!25}M & \cellcolor{orange!25}M & \cellcolor{orange!25}M & Accept \\ \hline
     \end{tabularx}
+    \caption{Risk register}
+    \label{register}
 \end{table}
 
+\pagebreak
 \subsection{Benefits evaluation}
 \subsubsection{Benefits identification}
 By analyzing the system's functionalities and capabilities, we identify the following benefits:
