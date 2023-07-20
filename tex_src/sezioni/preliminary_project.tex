@@ -106,8 +106,24 @@ Switching to the perspective of the provincial technicians we have the following
     
 \end{itemize}
 
-\subsubsection{OpenJUMP Plugins}
-Differently from the webapp, here a specific initial configuration on the user's terminals needs to be set up.
+\subsubsection{OpenJUMP plugin}
+The plugin is mainly implemented by 3 classes their functionalities are:
+
+\begin{itemize}
+    \item \textit{Plugin.java} Is the main class, it establish the plugin, and it finds the first nearest 3 monitor units and all reports in a 500m range.
+    \item \textit{Login.java} By using javaSwing it enables the user for making a login to the database.
+    \item \textit{Database.java} It connetes the plugin to the database, it can retrive all the monitor units and report stored.
+\end{itemize}
+
+For more tecnical infrmation the projact has a javadoc.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=25em]{img/classdiagram.png}
+    \caption{UML diagram}
+    \label{uml}
+\end{figure}
+Differently from the webapp, here a specific initial configuration on the user's terminals needs to be setted up.
 This kind of initial support is by the way provided by our company and so no tutorial needs to be included in this document. \\
 As specified we will use OpenJUMP as GIS desktop software: the open source nature of OpenJUMP grants us the full accessibility of it's interfaces for 2D geometry manipulation.
 The Output layers will be located in the "Result" folder. All the relevant data inside the database will be loaded in OpenJUMP so the technician can see all the information about reports and monitor units.
