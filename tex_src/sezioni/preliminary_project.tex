@@ -28,9 +28,9 @@ The goals of the hydrography management system project for the Province of Bellu
 Whenever talking about a system in the IT field it is implicit that different technological components (being them more or less interconnected) are required. In the case of the proposal for a Hydrography Management System, meeting the requirements of the customer, two different systems has top be developed: a desktop GIS system and a web GIS system, that are introduced in the following subsections and deeply explored in a dedicated paragraph. After that, software and hardware requirements need to be exploited.
 
 \subsubsection{Database}
-We can consider the database of the system the glue of all the other technological components. Furthermore, the customer already has in his IT sector a PosgreSQL database, that adapts prefectly to the system we want to develop, thanks to his extension \textit{PostGIS} that is suitable for managing spatial ang geographical data. Hence, this component will be used as the base for the developing of our application.
+We can consider the database of the system the glue of all the other technological components. Furthermore, the customer already has in his IT sector a PostgreSQL database, that adapts perfectly to the system we want to develop, thanks to his extension \textit{PostGIS} that is suitable for managing spatial ang geographical data. Hence, this component will be used as the base for the developing of our application.
 \subsubsection{Desktop GIS System}
-Since is accepted that some of the funtional requirements can be met through a desktop GIS application, and to stay adherent to the non-functional requirement of using FOSS components, the solution found is to develop specific plugins for the \textit{OpenJUMP} desktop application, making use of the \textit{Java™ JTS library}; the plugins built for the system will be packed together with the application and delivered to the customer. Technical support for the installation of the desktop system on customer terminals will be provided.
+Since is accepted that some of the functional requirements can be met through a desktop GIS application, and to stay adherent to the non-functional requirement of using FOSS components, the solution found is to develop specific plugins for the \textit{OpenJUMP} desktop application, making use of the \textit{Java™ JTS library}; the plugins built for the system will be packed together with the application and delivered to the customer. Technical support for the installation of the desktop system on customer terminals will be provided.
 \subsubsection{Web GIS System}
 The core of the system will be the web application: since it has to deliver to the user GIS capabilities, many components need to be integrated:
 \begin{itemize}
@@ -41,19 +41,19 @@ The core of the system will be the web application: since it has to deliver to t
 \end{itemize}
 
 \subsubsection{Hardware Requirements}
-To support the functioning of the web application also from the exterior of the provincial organization, because of the active citizenship policy, but also to facilitate eventual and future possibilities of smart working activities of the provincial employees, a concrete possibility is the one of setting up a virtual private server hosted on the cloud: this possibility can be delivered both from a provate hosting company, with a cost that has to be kept in consideration, or by the availability of some italian server infrastructure, if any.
+To support the functioning of the web application also from the exterior of the provincial organization, because of the active citizenship policy, but also to facilitate eventual and future possibilities of smart working activities of the provincial employees, a concrete possibility is the one of setting up a virtual private server hosted on the cloud: this possibility can be delivered both from a private hosting company, with a cost that has to be kept in consideration, or by the availability of some italian server infrastructure, if any.
 The fact that the customer already owns a PostgreSQL database in their servers, can suggest to use them as hosting machines also for the system, but this can led to security problems since can be that the machines are used also for other purposes, and the data traffic coming from the new system can cause slowdowns of the machine or worse, of the provincial office network. A solution to this can be to keep the data on the legacy database and tunnel the traffic between the new private server and the native machine whenever interactions with database are necessary, or to replicate the data we are interested on on a new instance of PostgreSQL running on the dedicate new private server.
 
 \subsubsection{Software Requirements}
 Many softwares needs to be used to set up the system:
 \begin{itemize}
     \item \textbf{Operating system}: an operating system has to be installed on the private server: to be stick with the FOSS components requirement, an installation of \textit{CentOS} can be considered as valid option.
-    \item \textbf{Database}: from the considerations derived from previous section, two different approaches can be followed: in case of replication, a fresh installation of PostgreSQL with the PostGIS extension is needed; if this is not considered a valid option, a way to set up a VPN connection between the existing PostgreSQL server and the system' server needs to be setted up.
-    \item \textbf{Web server}: a web server capable of delivering web contents, possibly also under SSL certificates, run scripts, and proxy data from other softwares needs to be setted up: for this, the \textit{Apache HTTP server} can be suitable for this requirement.
-    \item \textbf{Scripting interpreter}: the logic of the web system will be implemented through \textit{PHP}, a scripting laguage, that needs its interpreter (with the needed extensions) to be setted up properly.
+    \item \textbf{Database}: from the considerations derived from previous section, two different approaches can be followed: in case of replication, a fresh installation of PostgreSQL with the PostGIS extension is needed; if this is not considered a valid option, a way to set up a VPN connection between the existing PostgreSQL server and the system' server needs to be set up.
+    \item \textbf{Web server}: a web server capable of delivering web contents, possibly also under SSL certificates, run scripts, and proxy data from other softwares needs to be set up: for this, the \textit{Apache HTTP server} can be suitable for this requirement.
+    \item \textbf{Scripting interpreter}: the logic of the web system will be implemented through \textit{PHP}, a scripting language, that needs its interpreter (with the needed extensions) to be set up properly.
     \item \textbf{Web Map Service (WMS)}: a system capable of delivering web maps is needed: for this, \textit{Geoserver} is the best solution available.
     \item \textbf{Web Map Service container}: Geoserver is developed as a web application in \textit{Java}. This requires a Java container to run web applications. \textit{Tomcat} is our implementing choice, but a standalone version that includes another container (\textit{Jetty}) can be used.
-    \item \textbf{Security}: to better protect the server from malicius trials of intrusion, a firewall software can be installed on the machine. A good approach can be the usage of \textit{iptables}. 
+    \item \textbf{Security}: to better protect the server from malicious trials of intrusion, a firewall software can be installed on the machine. A good approach can be the usage of \textit{iptables}. 
 \end{itemize}
 
 \subsubsection{Components Schema}
@@ -65,9 +65,9 @@ Many softwares needs to be used to set up the system:
 
 \subsection{Functional Aspects of the System}
 The systems are developed in a way that no specific capabilities are required from the users.
-Anyway, here we provide some short explaination of some of the functionalities that we developed as a demo; the usability of the whole application will be based on the same technologies and possible to use in the same way. 
+Anyway, here we provide some short explanation of some of the functionalities that we developed as a demo; the usability of the whole application will be based on the same technologies and possible to use in the same way. 
 \subsubsection{WebGIS Application}
-The web application shall be used both from the citizenship side (from mobile devices) and from the provincial technicians, that has to access to the web appllication from a desktop computer.
+The web application shall be used both from the citizenship side (from mobile devices) and from the provincial technicians, that has to access to the web application from a desktop computer.
 Starting from the perspective of the citizenship, the functionalities are:
 \begin{itemize}
     \vspace{3ex}
@@ -89,7 +89,7 @@ Switching to the perspective of the provincial technicians we have the following
     \item \textbf{Login page} \\
     \begin{figure}[H]\centering \includegraphics[width=27em]{img/login.png} \caption{Login page} \label{login} \end{figure}
     By pressing the button \textit{Accedi} on the top bar Fig[\ref{login}], we can access to the backend area reserved for the provincial technicians.
-    If the login is successful a session is istantiated for the user, and he is redirected to a page that lists all the reports inserted by the citizens, filtered by year Fig[\ref{backendListing}].
+    If the login is successful a session is instantiated for the user, and he is redirected to a page that lists all the reports inserted by the citizens, filtered by year Fig[\ref{backendListing}].
     \begin{figure}[H] \centering \includegraphics[width=27em]{img/home_back.png} \caption{Backend report listing} \label{backendListing}\end{figure}
     From here, an endpoint (button \textit{Dettagli}) showing a series of details is available for each report Fig[\ref{reportView}]:
     \begin{enumerate}
@@ -107,10 +107,10 @@ Switching to the perspective of the provincial technicians we have the following
 \end{itemize}
 
 \subsubsection{OpenJUMP Plugins}
-Differently from the webapp, here a specific initial configuration on the user's terminals needs to be setted up.
+Differently from the webapp, here a specific initial configuration on the user's terminals needs to be set up.
 This kind of initial support is by the way provided by our company and so no tutorial needs to be included in this document. \\
-As specified we will use OpenJUMP as GIS desktop software: the open source nature of OpenJUMP grants us the full acessibilty of it's interfacess for 2D geometry manipulation.
-The Output layers will be located in the "Result" folder. All the relevant data inside the database will be loaded in OpenJUMP so the tecnichian can see all the informations about reports and monitor units.
+As specified we will use OpenJUMP as GIS desktop software: the open source nature of OpenJUMP grants us the full accessibility of it's interfaces for 2D geometry manipulation.
+The Output layers will be located in the "Result" folder. All the relevant data inside the database will be loaded in OpenJUMP so the technician can see all the information about reports and monitor units.
 The plugin will work as the following:
 
 \begin{enumerate}
@@ -130,7 +130,7 @@ The plugin will work as the following:
     \item The plugin will find the closest three monitor units to the report position (two upstream one downstream) and they will be linked to the position of the report chosen fig:[\ref{optuTorial3}].
     \begin{figure}[H]
         \centering
-        \includegraphics[width=27em]{img/op3.png} \caption{Report connetions} \label{optuTorial3}
+        \includegraphics[width=27em]{img/op3.png} \caption{Report connections} \label{optuTorial3}
     \end{figure}
 
     \item The plugin will find all the reports in a range of 500 meters and they will be linked to the report chosen.
