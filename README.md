@@ -54,8 +54,9 @@ app_src/web_app/visualizza_tutti.php -> lines 360 and 392
 
 ### OpenJUMP plugin
 
-In your openJUMP envoriement create a package `openjmp_plug` and put inside all the class found in `openjmp_plug`.
-Then add the plugin in your `plugins.xml` and add the plugin reference:
+- In your openJUMP envoriement create a package `openjmp_plug` and put inside all the class found in `openjmp_plug`.
+- In the class `Database.java` there is a variable called `databaseUrl` in line 30, change it to point your database. 
+- Then add the plugin in your `plugins.xml` and add the plugin reference:
 ```xml 
 <workbanch>
     ...
