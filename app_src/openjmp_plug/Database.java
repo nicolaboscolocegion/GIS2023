@@ -26,8 +26,10 @@ import org.locationtech.jts.io.WKTReader;
  */
 public class Database {
 
-	
-	    private static final String url = "jdbc:postgresql://gis2023.bitsei.it:5432/gis2023";
+		/**
+		 * change if you want to use a different database
+		 */
+	    private static final String databaseUrl = "jdbc:postgresql://gis2023.bitsei.it:5432/gis2023";
 	  
 
 	    private Connection con;
@@ -37,7 +39,7 @@ public class Database {
 	    
 	    public Database(String username, char[] password) {
 	    	try {
-	            con = DriverManager.getConnection(url, username, new String(password));
+	            con = DriverManager.getConnection(databaseUrl, username, new String(password));
 	            System.out.println("Connected to the PostgreSQL server successfully.");
 	        } catch (SQLException e) {
 	            System.out.println(e.getMessage());
