@@ -1,12 +1,8 @@
 <?php
 
-    $servername = "localhost";
-    $username = "postgres";
-    $password = "***REMOVED***";
-    $dbname = "gis2023";
-
-
-    $conn = pg_connect("host=" . $servername . " port=5432 dbname=" . $dbname . " user=" . $username . " password=" . $password);
+    
+    require_once("sessmgr.php");
+    require_once("conndb.php");
     $result = NULL;
 
 

@@ -356,13 +356,7 @@ require_once("sessmgr.php");
     <select id="defaultSelectDisabled" name="anno" onchange="this.form.submit();">
     <?php
     
-    $servername = "localhost";
-    $username = "postgres";
-    $password = "***REMOVED***";
-    $dbname = "gis2023";
-
-
-    $conn = pg_connect("host=" . $servername . " port=5432 dbname=" . $dbname . " user=" . $username . " password=" . $password);
+    require_once("conndb.php");
 
     $result = pg_query($conn, "select distinct extract(year from data_report) as anno FROM reports;");
     while ($arr = pg_fetch_array($result)) {
@@ -388,13 +382,8 @@ require_once("sessmgr.php");
   <div>
   <?php
     
-    $servername = "localhost";
-    $username = "postgres";
-    $password = "***REMOVED***";
-    $dbname = "gis2023";
+    require_once("conndb.php");
 
-
-    $conn = pg_connect("host=" . $servername . " port=5432 dbname=" . $dbname . " user=" . $username . " password=" . $password);
     //$latitudes = "[";
     //$longitudes = "[";
     $i = 1;

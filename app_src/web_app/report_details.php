@@ -351,13 +351,9 @@ require_once("sessmgr.php");
 
   <?php
     
-    $servername = "localhost";
-    $username = "postgres";
-    $password = "***REMOVED***";
-    $dbname = "gis2023";
+    
+    require_once("conndb.php");
 
-
-    $conn = pg_connect("host=" . $servername . " port=5432 dbname=" . $dbname . " user=" . $username . " password=" . $password);
     
     $i = 1;
     $result = pg_query($conn, "SELECT id_report, data_report, ST_AsText (position) as pos, pollutant, report_description, nome_file, elevation FROM reports WHERE id_report = " . $_GET["id"] . ";");
