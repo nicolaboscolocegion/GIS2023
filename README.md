@@ -64,7 +64,7 @@ app_src/web_app/visualizza_tutti.php -> lines 360 and 392
     ...
 </workbanch>
 ```
-Then run openJUMP with the right options inside your IDE
+- Then run openJUMP with the right options inside your IDE
 
 ## How to use it
 
