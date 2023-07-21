@@ -1,6 +1,6 @@
 
 # GIS2023
-UNIPD project for Geographic Information System course:
+UNIPD - Computer Engineering - Geographic Information System course:
 
 ### Provincial water
 
@@ -32,7 +32,7 @@ A live demo can be found here:
 
 - Use apache web server to run the php application, just put the `web_app` folder inside the `htdocs` folder.
 
-- For making the connettion with the database and your web app you must change the username, password and DB name that you are using, you will found something like this in all the files:
+- For the connection with the database and your web app you must change the username, password and DB name that you are using, in the app_src/web_app/conndb.php:
 
 ```php 
 $servername = "localhost";
@@ -54,7 +54,7 @@ app_src/web_app/visualizza_tutti.php -> lines 360 and 392
 
 ### OpenJUMP plugin
 
-- In your openJUMP envoriement create a package `openjmp_plug` and put inside all the class found in `openjmp_plug`.
+- In your openJUMP environment create a package `openjmp_plug` and put inside all the class found in `openjmp_plug`.
 - In the class `Database.java` there is a variable called `databaseUrl` in line 30, change it to point your database. 
 - Then add the plugin in your `plugins.xml` and add the plugin reference:
 ```xml 
