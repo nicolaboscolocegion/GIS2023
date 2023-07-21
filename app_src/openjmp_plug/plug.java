@@ -21,12 +21,21 @@ import com.vividsolutions.jump.workbench.ui.*;
 
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
-public class plug extends AbstractPlugIn {
+/**
+ * Plugin class
+ * @author nicolaboscolo
+ *
+ */
+public class Plug extends AbstractPlugIn {
 
 	
-	
+	/**
+	 * Initialize the plugin
+	 */
 	@Override
 	public void initialize(PlugInContext context) throws Exception {
 		
@@ -41,18 +50,33 @@ public class plug extends AbstractPlugIn {
 			null );
 	}
 	
+	/**
+	 * this plugin let's the use choose a report and it finds the 3 nearest stations 
+	 * then it finds all the report near it in a range of 500m
+	 */
 	@Override
 	public boolean execute(PlugInContext context) throws Exception {
 		
 		Login login = new Login();
 		
+		
 		if(login.getPassword()==null || login.getUserName()==null) {
-			System.err.println("Username or password not written");
+			System.err.println("username or password not insert");
 			return false;
 		}
 		
 		
 		Database app = new Database(login.getUserName() , login.getPassword());
+		
+		if(app.isConnetted()==false) {
+			System.err.println("database not conneted");
+			JOptionPane.showMessageDialog(new JFrame(),
+				    "Username or password not corret",
+				    "Error",
+				    JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+			
 		
 		FeatureCollection reports = app.getReports();
 		context.getLayerManager().addLayer("Result", "reports", reports);
@@ -61,10 +85,10 @@ public class plug extends AbstractPlugIn {
 		FeatureCollection[] stations = app.getStations();
 		app.close();
 		
-		context.getLayerManager().addLayer("Result", "sensor1", stations[0]);
-		context.getLayerManager().addLayer("Result", "sensor2", stations[1]);
-		context.getLayerManager().addLayer("Result", "sensor3", stations[2]);
-		context.getLayerManager().addLayer("Result", "sensor4", stations[3]);
+		context.getLayerManager().addLayer("MonitorUnits", "sensor1", stations[0]);
+		context.getLayerManager().addLayer("MonitorUnits", "sensor2", stations[1]);
+		context.getLayerManager().addLayer("MonitorUnits", "sensor3", stations[2]);
+		context.getLayerManager().addLayer("MonitorUnits", "sensor4", stations[3]);
 		
 		
 		List<String> reportsNames = new LinkedList<String>();
@@ -262,7 +286,7 @@ public class plug extends AbstractPlugIn {
 			}
 		}
 		
-		nearReports.add(reportSelected.clone());
+		
 		
 		//output layers
 		context.getLayerManager().addLayer("Result", "near stations", nearestStations);
@@ -273,10 +297,13 @@ public class plug extends AbstractPlugIn {
 		return false;
 	}
 	
-	
+	/**
+	 * gets the name of the plugin
+	 * @return the string
+	 */
 	@Override
 	public String getName() {
 		//name of the plug
-		return "super plug";
+		return "Report scanning";
 	}
 }

@@ -1,0 +1,31 @@
+\section{Analysis of Requirements}
+\label{sec:requirements}
+
+\subsection{Functional Requirements}
+\begin{itemize}
+    \item \textbf{Import and Export of Data}: The system must support the seamless import and export of data in various standard formats, including shape files. This capability will enable data integration from diverse sources and facilitate interoperability with other systems.
+    \item \textbf{Network Update}: The system should allow authorized personnel to update both the geometric and attribute aspects of the water network. It must ensure data consistency by maintaining a comprehensive history of modifications, enabling traceability and analysis of network changes over time.
+    \item \textbf{Query System}: A robust interrogation system is necessary, equipped with spatial and alphanumeric filters that can be combined. This will empower users to perform complex queries, extracting relevant information based on specific criteria for data retrieval and analysis.
+    \item \textbf{Query Results Export}: Users should have the ability to export query results in compatible formats for further analysis, reporting, or integration with external tools and systems. This functionality enhances data utilization and supports informed decision-making processes.
+    \item \textbf{Cartography and Orthophoto Visualization}: The system should provide an intuitive visualization interface, allowing users to overlay cartographic and orthophoto data as a background for analysis purposes. This feature enables the correlation of additional information with spatial context, aiding in decision-making.
+\end{itemize}
+
+\subsection{Data Requirements}
+The system necessitates the following data (with the following charateristics) to fulfill its objectives in the hydrography management system:
+\begin{itemize}
+    \item \textbf{Required Data}: Comprehensive information regarding water bodies within the province, including spatial attributes (geometry), essential attributes (e.g., name, type), and historical records of network modifications.
+    \item \textbf{Data Format}: The system should support multiple data formats for efficient data management and interoperability. Primarily, the system should be capable of working with shape files, which are widely used in the geospatial domain. Shape files provide a standard format for storing both the geometry and attributes of geographic features. This format ensures compatibility with existing datasets and enables seamless integration with other geospatial systems.
+                                Furthermore, the system should support commonly used formats for import and export operations, such as CSV (Comma-Separated Values) and GeoJSON (a format for encoding geospatial data in JSON). These formats facilitate data exchange with external systems and enable data analysis using various tools and applications.
+                                By accommodating these diverse data formats, the system can effectively handle the information related to the water bodies, ensuring compatibility with existing data sources and promoting data interoperability within the hydrography management domain.
+\end{itemize}
+
+
+\subsection{Nonfunctional Requirements}
+To ensure the development of an effective hydrography management system, the following nonfunctional requirements must be considered:
+\begin{itemize}
+    \item \textbf{Use of PostgreSQL DBMS}: The system should leverage the PostgreSQL database management system (DBMS) for efficient data storage, retrieval, and management. The utilization of this reliable and widely adopted DBMS will contribute to the system's scalability and performance. Within PostgreSQL, a powerful plugin for it called PostGIS will be used, so to expand the DBMS capabilities on managing spatial data.
+    \item \textbf{Use of FOSS Components}: The system should embrace the use of Free and Open Source Software (FOSS) components during its development. By leveraging FOSS tools and libraries, the system can benefit from community support, cost-effectiveness, and flexibility in customization.
+    \item \textbf{Compliance with Applicable Standards}: The system must adhere to applicable national and international standards for hydrography management and data representation. This compliance ensures interoperability, facilitates data sharing, and promotes compatibility with other systems within the domain.
+    \item \textbf{Compliance with Rules and Regulations}: The system should conform to all relevant rules and regulations governing water management and environmental protection at both national and international levels. Adherence to these regulations ensures legal compliance and promotes responsible data handling practices.
+\end{itemize}
+

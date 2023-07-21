@@ -1,0 +1,123 @@
+\section{Project Guidelines}
+\subsection{Deployment Plan}
+\subsubsection{Scheduling and Timeframes}
+   
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img/gantt.png}
+    \caption{Gantt Chart}
+    \label{Gantt}
+\end{figure}
+
+\subsubsection{Description}
+In the Gantt chart are shown all the activities necessary to reach the final goal; the working hypothesis is to start the project by the 1st of September 2023 with the sever configuration procedures and then finish up everything (if no delays happens) by the 12th of October: the whole execution then should take around one month and a half.
+This hypothesis does not take care of the number of working resources (software engineers or programmers) available for the execution, that can led to a more constrained execution due to many parallelized activities. \\
+Activities coloured in pink represents the \textit{critical path}, that are the ones in which a delay can led to a delay of the whole project.
+
+\subsubsection{Deliverables}
+From the Gantt chart is visible that three main milestone are present in the timeline of the project: these coincides with three different \textit{deliverables}, that are three tangible and atomically usable parts of the system.\\
+In particular:
+\begin{itemize}
+    \item \textbf{05/10}: this milestone coincides with the delivery of the hydrography and intakes management functionalities. Theoretically, from this date the provincial employees can start to use and to test this subpart of the system;
+    \item \textbf{20/09}: this milestone coincides with the delivery of the automatic data reading subsystem from the web gateways and the email alert system. Theoretically, from this date the provincial employees can start to use and to test this subpart of the system;
+    \item \textbf{21/09}: this milestone coincides with the delivery of the reporting subsystem for the citizenship and its backend and desktop management functionalities. Theoretically, from this date the provincial employees can start to use and to test this subpart of the system.
+\end{itemize}
+
+\pagebreak
+\subsection{Risk Management}
+Many activities can be conducted to study risks in a project. One possible approach can be to conduct a \textit{FMEA} analysis, but the size of the actual project is not so big to justify such an extensive analysis. \\
+A better approach for the actual project has been found in filling a risk register.
+
+\subsubsection{Risk Matrix}
+To evaluate the level of a risk (in a scale of three levels, \textit{low}, \textit{medium} and \textit{high}) we can use the risk matrix that is defined as follows:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|cc|c|c|c|}
+    \hline
+    \multicolumn{2}{|l|}{\textbf{IMPACT}}                      & Low    & Medium & High   \\ \hline
+    \multicolumn{1}{|l|}{\multirow{3}{*}{\rotatebox{90}{\textbf{PROB.}}}} & High   & \cellcolor{orange!25}Medium & \cellcolor{red!25}High & \cellcolor{red!25}High   \\ \cline{2-5} 
+    \multicolumn{1}{|l|}{}                   & Medium & \cellcolor{green!25}Low    & \cellcolor{orange!25}Medium & \cellcolor{red!25}High   \\ \cline{2-5} 
+    \multicolumn{1}{|l|}{}                   & Low    & \cellcolor{green!25}Low    & \cellcolor{green!25}Low    & \cellcolor{orange!25}Medium \\ \hline
+    \end{tabular}
+    \caption{Risk Matrix}
+    \label{matrix}
+\end{table}
+
+\subsubsection{Risk Register}
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\columnwidth}{|X|X|X|c|c|c|c|}
+    \hline
+    \textbf{DESCR.} & \textbf{CAUSE} & \textbf{DAMAGE} & \textbf{PROB.} & \textbf{IMPACT} & \textbf{LEVEL} & \textbf{ACTION} \\ \hline
+    Data breach & Malicious intrusion with the purpose of steal data & Sensible data exiting from the system & \cellcolor{green!25}L & \cellcolor{orange!25}M & \cellcolor{green!25}L & Mitigate \\ \hline
+    Denial of service & Malicious will of attackers of blocking the system & Unavailability of the system & \cellcolor{green!25}L & \cellcolor{red!25}H & \cellcolor{orange!25}M & Mitigate \\ \hline
+    System server running out of disk space & Server disk out of space suddenly due to unexpected space required & Unavailability of the system & \cellcolor{orange!25}M & \cellcolor{red!25}H & \cellcolor{red!25}H & Mitigate \\ \hline
+    Monitoring unit malfunctioning & Broken sensor (not detected) that returns uncorrect data & Uncorrect alerts sent by mail & \cellcolor{green!25}L & \cellcolor{red!25}H & \cellcolor{orange!25}M & Transfer \\ \hline
+    Impossibility of acquiring data & Unit readings not returned due to mobile network malfunctions & Missing pollutants monitoring in a certain unit of time & \cellcolor{green!25}L & \cellcolor{red!25}H & \cellcolor{orange!25}M & Transfer \\ \hline
+    Fake reporting & Malicious will from citizens to report unreal alterations & Untrustable data & \cellcolor{orange!25}M & \cellcolor{orange!25}M & \cellcolor{orange!25}M & Accept \\ \hline
+    \end{tabularx}
+    \caption{Risk register}
+    \label{register}
+\end{table}
+
+\pagebreak
+\subsection{Benefits Evaluation}
+\subsubsection{Benefits Identification}
+By analyzing the system's functionalities and capabilities, we identify the following benefits:
+\begin{itemize}
+    \item Fast water pollution detection and circumscription: in case of polluting events, by the alert system is possible to isolate the pollutants quickly, contacting the authorities and avoiding reclaim activities;
+    \item Transparent governance: the dedicated portal for water quality analysis results and the citizen reporting system will promote transparency in governance. Citizens will actively participate in the supervision of the province's water heritage by reporting incidents and alterations, fostering a sense of responsibility and engagement in environmental protection;
+    \item Data-driven decision making: The system's capabilities for querying and visualizing data will provide valuable insights for informed decision-making. By analyzing historical data and monitoring trends, the province can proactively address water-related challenges, implement preventive measures, and optimize resource allocation;
+    \item Improved efficiency and data accessibility: with the implementation of a user-friendly WebGIS application and advanced querying capabilities, accessing and retrieving hydrography data will become more efficient and streamlined. Technical offices and authorized personnel will have real-time access to essential information, reducing response times for critical interventions;
+    \item Compliance with standards and regulations: through adherence to relevant hydrography management standards and regulations, the system will ensure that the province's water management practices align with national and international guidelines. This compliance will enhance the province's reputation and bolster its commitment to responsible water resource management.
+\end{itemize}
+
+\subsubsection{Economic Quantification of the Benefits}
+An exact estimation of the benefits when talking about the management of a such heterogeneous natural environment that can be harmed by pollutants its hard to discuss. \\
+What is important to notice, in our opinion, is that among all the benefits identified above, the first one is the most important; to reclaim a polluted river, or worst, a lake, can be an activity extremely costly (millions of euros), and such an activity can be even not practicable in certain cases. The possibility of avoiding an heavy and irreversible pollution event of an environment in an \textit{UNESCO Heritage} in our opinion has no price. \\
+That said, other "minor" (with respect to the previous) benefits can be estimated:
+\begin{itemize}
+    \item Transparent governance: the possibility of having active citizens can avoid the necessity of technicians going around the province to sketch possible polluting events, avoiding a \textit{RAL} of around \textit{25.000€ - 30.000€} per technician;
+    \item Improved efficiency and data accessibility: the easiness of data availability for provincial employees can avoid many working hours of browsing just to find the correct data necessary;
+    \item Compliance with standards and regulations: this benefit benefits in different ways: for example, the compliance with standards will allow the province to integrate further functionalities based on future available data. Moreover, this will allow the province to sell data acquired from reports and intake management to other public or private bodies.
+\end{itemize}
+
+\subsection{Cost Evaluation}
+\subsubsection{Project Costs}
+We summarized the costs related to the starting project considering five different categories of costs:
+\begin{table}[H]
+    \begin{tabularx}{\columnwidth}{|X|c|c|c|}
+    \hline
+    \textbf{ACTIVITY} & \textbf{UNIT COST} & \textbf{QUANTITY} & \textbf{TOTAL} \\ \hline
+    VIRTUAL SERVER ACTIVATION & 250€ & 1 & 250€ \\ \hline
+    SERVER CONFIGURATION & 40€ & 40h & 1.600€ \\ \hline
+    WEB DEVELOPING & 55€ & 304h & 16.720€ \\ \hline
+    DESKTOP PLUGINS DEVELOPMENT & 45€ & 40h & 1.800€ \\ \hline
+    DATA READER SCRIPT FROM MONITORING UNITS & 45€ & 64h & 2.880€ \\ \hline
+    CONFIGURATION OF DESKTOP GIS ENVIRONMENT & 40€ & 24h & 960€ \\ \hline
+    \noalign{\hrule height 2pt}
+    \multicolumn{3}{|l|}{\textbf{TOTAL}} & \textbf{24.210€} \\ \hline
+    \end{tabularx}
+    \caption{Project costs}
+    \label{projectCost}
+\end{table}
+
+\subsubsection{Running Costs}
+We estimated the costs related to the maintenance of the system (based on an annual scale) considering two categories of costs:
+\begin{table}[H]
+    \begin{tabularx}{\columnwidth}{|X|c|c|c|}
+    \hline
+    \textbf{ACTIVITY} & \textbf{UNIT COST} & \textbf{QUANTITY} & \textbf{TOTAL} \\ \hline
+    VIRTUAL SERVER RENEWAL & 250€ & 1 & 250€ \\ \hline
+    ASSISTANCE PLAN & 40€ & 20h/month & 9.600€ \\ \hline
+    \noalign{\hrule height 2pt}
+    \multicolumn{3}{|l|}{\textbf{TOTAL}} & \textbf{9.850€} \\ \hline
+    \end{tabularx}
+    \caption{Running costs}
+    \label{runningCost}
+\end{table}
+
+\subsection{Cost - Benefits Considerations}
+In this study case in our opinion costs and benefits cannot be related together in a specific and mathematical analysis. \\
+The investment has to be considered by the province as preventive action against any pollutant event that can harm heavily the environment.
+Not only: considering a good promoting campaign by the province of the public reporting web portal can really let the province to save the money dedicated on hiring technicians, re-paying completely the estimated system yet from the first year.

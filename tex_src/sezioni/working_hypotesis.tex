@@ -1,0 +1,30 @@
+\section{Working Hypotesis}
+\label{sec:working_hypotesis}
+
+The working hypothesis for this hydrography management project is based on careful analysis of the requirements and constraints. It forms the foundation for our approach and solution design. The following aspects outline our working hypothesis:
+
+\subsection{Considerations}
+Our primary focus is to develop a robust and scalable hydrography management system that effectively meets the needs of the Province of Belluno. We understand the importance of adhering to relevant standards and applying best practices in hydrography management. Additionally, we recognize the significance of user accessibility and aim to design the system as a web application, compatible with commonly used browsers such as Explorer, Chrome, and Firefox. We will also incorporate functionalities for specific use cases that may require customization using desktop GIS tools.
+
+\subsection{Hypotesis}
+Our hypothesis is that by implementing a customized GIS web application, integrated with a PostgreSQL DBMS, we can create an efficient hydrography management system that meets the specified requirements. The system will enable the province to document water bodies, manage intakes, monitor water conditions, perform data consultations, and handle citizen alerts effectively. To achieve this, the system will incorporate the following key features:
+\begin{enumerate}
+    \item Import and export of data in shape format and other standard formats to facilitate seamless integration with existing data sources and enable data exchange with external systems;
+    \item Capability to update the network, both in terms of geometric elements and attribute data, while ensuring the historicization of changes. This will provide a comprehensive view of the network's evolution over time;
+    \item An advanced interrogation system that combines spatial and alphanumeric filters to enable users to perform complex queries. This functionality will allow users to retrieve specific information based on their criteria;
+    \item Export of query results to allow users to save and utilize the obtained data for further analysis or reporting purposes;
+    \item Visualization of cartography and orthophotos as a background to enhance the analysis and interpretation of data within the system.
+\end{enumerate}
+
+In addition to these core features, the system will address specific requirements within the hydrography management domain. It will enable the province to:
+\begin{enumerate}
+    \item Manage intakes effectively by providing information on intake positions and attributes, facilitating the insertion and removal of intakes, and determining the route of pollutants released from intakes;
+    \item Monitor water conditions by collecting real-time data from water monitoring units strategically placed across the province's waterways and lakes. The system will capture parameters such as level, speed, flow, turbidity, temperature, conductivity, pH, redox potential, dissolved oxygen, \textit{NH4+}, and \textit{CL-};
+    \item Support maintenance activities for the control units, generating schedules for periodic maintenance and recording execution details to ensure the continuous and accurate functioning of the monitoring units;
+    \item Enable data consultation by providing technical offices with the ability to perform combined searches based on spatial and attribute filters, as well as historical queries. The system will support complex queries such as identifying intakes in specific stretches of rivers or monitoring units measuring pH values below 6 within specific time intervals;
+    \item Handle citizen alerts and facilitate transparent governance by creating a dedicated portal for daily publication of water quality analysis results. The system will include a reporting mechanism for citizens to anonymously report the presence of pollutants in the water, attaching photos and indicating the geographical location. Automatic filtering and relevance scoring of reports will be performed to reduce manual processing. The system will associate each alert with relevant monitoring units and previous alerts within a certain proximity.
+\end{enumerate}
+
+\subsection{Analysis of Risks and Constraints}
+We will conduct a thorough analysis of potential risks and constraints that may affect the project's success. These could include technical challenges, data quality issues, resource limitations, and compliance requirements. We will develop mitigation strategies and contingency plans to address these risks and ensure smooth project execution.
+
