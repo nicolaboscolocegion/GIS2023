@@ -32,23 +32,15 @@ A live demo can be found here:
 
 - Use apache web server to run the php application, just put the `web_app` folder inside the `htdocs` folder.
 
-- For the connection with the database and your web app you must change the username, password and DB name that you are using, in the app_src/web_app/conndb.php:
+- For the connection with the database and your web app you must change the username, password and DB name that you are using, in the [app_src/web_app/conndb.php](app_src/web_app/conndb.php):
 
 ```php 
-$servername = "localhost";
-$username = "postgres";
-$password = "***REMOVED***";
-$dbname = "gis2023";
+$servername = "<Your IP server or localhost>";
+$username = "<Your username>";
+$password = "<Your Password>";
+$dbname = "<Your database name>";
 ```
 
-- The files with the line that must be modify are:
-```
-app_src/web_app/execute_login.php -> line 5
-app_src/web_app/execute_insert_report.php -> line 3
-app_src/web_app/visualizza_report.php ->lines  367 and 409
-app_src/web_app/report_details.php -> line 354 
-app_src/web_app/visualizza_tutti.php -> lines 360 and 392
-```
 - Now the web app is ready, go to `localhost://web_app`
 
 
