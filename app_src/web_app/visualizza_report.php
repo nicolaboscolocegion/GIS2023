@@ -415,7 +415,7 @@ require_once("sessmgr.php");
     $result = pg_query($conn, $sql);
     while ($arr = pg_fetch_array($result)) {
       echo "<tr>";
-      echo "<th>" . $arr[0] . "</th>";
+      echo "<th>" . $arr[4] . "</th>";
       echo "<td>" . date("d/m/Y", strtotime($arr[0])) . "</td>";
       echo "<td>" . $arr[1] . "</td>";
       echo "<td>" . $arr[3] . "</td>";
