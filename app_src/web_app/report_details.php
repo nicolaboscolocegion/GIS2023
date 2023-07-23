@@ -398,6 +398,18 @@ require_once("sessmgr.php");
   <div class="accordion-item">
     <h2 class="accordion-header " id="heading2c">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2c" aria-expanded="false" aria-controls="collapse2c">
+        ID report
+      </button>
+    </h2>
+    <div id="collapse2c" class="accordion-collapse collapse show" role="region" aria-labelledby="heading2c">
+      <div class="accordion-body">
+      <?php echo $arr[0] ?>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header " id="heading2c">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2c" aria-expanded="false" aria-controls="collapse2c">
         Data
       </button>
     </h2>
