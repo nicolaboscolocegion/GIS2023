@@ -388,7 +388,7 @@ require_once("sessmgr.php");
   <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">id</th>
       <th scope="col">Data</th>
       <th scope="col">Inquinante</th>
       <th scope="col">Posizione (EPSG:3857)</th>
@@ -415,7 +415,7 @@ require_once("sessmgr.php");
     $result = pg_query($conn, $sql);
     while ($arr = pg_fetch_array($result)) {
       echo "<tr>";
-      echo "<th>" . $i . "</th>";
+      echo "<th>" . $arr[0] . "</th>";
       echo "<td>" . date("d/m/Y", strtotime($arr[0])) . "</td>";
       echo "<td>" . $arr[1] . "</td>";
       echo "<td>" . $arr[3] . "</td>";
