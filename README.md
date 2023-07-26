@@ -52,7 +52,7 @@ $dbname = "<Your database name>";
 ```xml 
 <workbanch>
     ...
-    <plug-in>openjmp_plug.plug</plug-in>
+    <plug-in>openjmp_plug.Plug</plug-in>
     ...
 </workbanch>
 ```
