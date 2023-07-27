@@ -19,7 +19,7 @@ map.addLayer(osmTile);
 var BellunoFiumi = new ol.layer.Tile({
     title: "Fiumi di Belluno",
     source: new ol.source.TileWMS({
-        url: 'http://gis2023.bitsei.it/geoserver/GIS_2023/wms',
+        url: 'https://gis2023.bitsei.it/geoserver/GIS_2023/wms',
         params: {'LAYERS':'GIS_2023:bellunofiumi', 'TILED': true},
         serverType: 'geoserver',
         visible: true
@@ -30,7 +30,7 @@ var BellunoLaghi = new ol.layer.Tile({
     title: "Laghi di Belluno",
     source: new ol.source.TileWMS({
         //url: 'http://89.40.142.15:8888/geoserver/GIS_2023/wms',
-        url: 'http://gis2023.bitsei.it/geoserver/GIS_2023/wms',
+        url: 'https://gis2023.bitsei.it/geoserver/GIS_2023/wms',
         params: {'LAYERS':'GIS_2023:bellunolaghi', 'TILED': true},
         serverType: 'geoserver',
         visible: true
