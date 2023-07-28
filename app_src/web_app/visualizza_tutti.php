@@ -10,7 +10,7 @@ require_once("sessmgr.php");
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Ufficio segnalazioni contaminazioni della provincia di Belluno">
+  <meta name="description" content="Segnalazioni contaminazioni della provincia di Belluno">
   <meta name="author" content="">
   <meta name="generator" content="">
   <meta name="robots" content="noindex">
@@ -27,8 +27,6 @@ require_once("sessmgr.php");
   <link href="/css/main.css" rel="stylesheet">
 
   <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
@@ -191,7 +189,6 @@ require_once("sessmgr.php");
               <div class="it-header-center-content-wrapper">
                 <div class="it-brand-wrapper">
                   <a href="https://www.provincia.belluno.it/home">
-                    <img src="araldico.png" style="margin-right:15px; width:5%;">
                     <div class="it-brand-text">
                       <div class="it-brand-title">Ufficio segnalazioni contaminazioni</div>
                       <div class="it-brand-tagline d-none d-md-block">Provincia di Belluno</div>
@@ -436,7 +433,6 @@ require_once("sessmgr.php");
             <div class="col-sm-12">
               <div class="it-brand-wrapper">
                 <a href="https://www.provincia.belluno.it/home">
-                  <img src="araldico.png" style="margin-right:15px; width:3%;">
                   <div class="it-brand-text">
                     <h2 class="no_toc">Provincia di Belluno</h2>
                     <h3 class="no_toc d-none d-md-block">Regione del Veneto</h3>
